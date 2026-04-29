@@ -1,16 +1,31 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const BASE = import.meta.env.BASE_URL;
 const seriesData = [
   {
     id: "cl3",
-    name: "CL3 Series",
+    name: "Essential (6.5mm)",
     size: '7.21" x 48"',
     thickness: "6.5mm",
     wear: "20mil",
     description: "Reliable SPC flooring with popular colours.",
+    specs: {
+      sqft: "19.22 sq.ft / carton",
+      weight: "42 lbs / carton",
+      planks: "8 planks / carton",
+      pallet: "55 cartons / pallet"
+    },
+
+    features: [
+      "100% Waterproof",
+      "Scratch Resistant Wear Layer",
+      "Four-sided painted bevels",
+      "Click Lock Installation",
+      "Low Maintenance",
+      "Suitable for Residential & Light Commercial"
+    ],
     colors: [
       { name: "CL321 - Bridal Veil Falls", image: `${BASE}images/CL321.jpg` },
       { name: "CL322 - Cascade Creeks", image: `${BASE}images/CL322.jpg` },
@@ -28,11 +43,27 @@ const seriesData = [
 
   {
     id: "wide",
-    name: "7mm Wide Plank",
+    name: "Wide Plank (7mm)",
     size: '9" x 48"',
     thickness: "7mm",
     wear: "20mil",
     description: "Wide plank modern flooring designs.",
+    specs: {
+      sqft: "24.17 sq.ft / carton",
+      weight: "50 lbs / carton",
+      planks: "8 planks / carton",
+      pallet: "48 cartons / pallet"
+    },
+
+    features: [
+      "100% Waterproof",
+      "Scratch Resistant Wear Layer",
+      "Four-sided painted bevels",
+      "Enhanced Underlayment",
+      "Click Lock Installation",
+      "Low Maintenance",
+      "Suitable for Residential & Light Commercial"
+    ],
     colors: [
       { name: "CL1701 - Dartford", image: `${BASE}images/CL1701.PNG` },
       { name: "CL1702 - Sevenoaks", image: `${BASE}images/CL1702.PNG` },
@@ -49,11 +80,27 @@ const seriesData = [
 
   {
     id: "standard",
-    name: "7mm Standard",
+    name: "Classic (7mm)",
     size: '7.21\" x 48\"',
     thickness: "7mm",
     wear: "20mil",
     description: "Dealer-friendly balanced flooring collection.",
+    specs: {
+      sqft: "19.23 sq.ft / carton",
+      weight: "43 lbs / carton",
+      planks: "8 planks / carton",
+      pallet: "55 cartons / pallet"
+    },
+
+    features: [
+      "100% Waterproof",
+      "Scratch Resistant Wear Layer",
+      "Micro bevels",
+      "Enhanced Underlayment",
+      "Click Lock Installation",
+      "Low Maintenance",
+      "Suitable for Residential & Light Commercial"
+    ],
     colors: [
       { name: "CL1731 - Brockton Totem", image: `${BASE}images/CL1731.PNG` },
       { name: "CL1732 - Monterrey Sierra", image: `${BASE}images/CL1732.png` },
@@ -66,11 +113,29 @@ const seriesData = [
 
   {
     id: "premium",
-    name: "8mm Premium",
+    name: "Premium (8mm)",
     size: '9.1" x 48"',
     thickness: "8mm",
     wear: "20mil",
     description: "Premium SPC flooring with elevated construction.",
+    specs: {
+      sqft: "18.122 sq.ft / carton",
+      weight: "50 lbs / carton",
+      planks: "6 planks / carton",
+      pallet: "48 cartons / pallet"
+    },
+
+    features: [
+      "100% Waterproof",
+      "Enhanced Core",
+      "Wide Planks",
+      "Scratch Resistant Wear Layer",
+      "Four-sided painted bevels",
+      "Enhanced Underlayment",
+      "Click Lock Installation",
+      "Low Maintenance",
+      "Suitable for Residential & Light Commercial"
+    ],
     colors: [
       { name: "CL1821 - Glacier", image: `${BASE}images/CL1821.jpg` },
       { name: "CL1822 - Celtic", image: `${BASE}images/CL1822.jpg` },
@@ -81,6 +146,13 @@ const seriesData = [
     ],
   },
 ];
+
+function createSlug(name) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
 
 function App() {
   return (
@@ -122,6 +194,7 @@ function Site() {
         <Route path="/resources" element={<ResourcesPage />} />
         <Route path="/visualizer" element={<VisualizerPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/colour/:slug" element={<ColourDetailPage />} />
 
         <Route path="/spc-flooring-canada" element={<SeoSpcCanada />} />
         <Route path="/wholesale-flooring-bc" element={<SeoWholesaleBC />} />
@@ -323,16 +396,150 @@ function SeriesPage({ seriesId, setSelectedColor }) {
 
       <div className="colorGrid">
         {selectedSeries.colors.map((color) => (
-          <div
-            className="colorTile"
-            key={color.name}
-            onClick={() => setSelectedColor(color)}
-          >
-            <img src={color.image} alt={`${color.name} SPC flooring`} />
-            <h3>{color.name}</h3>
+          <div className="colorTile" key={color.name}>
+            <Link
+              to={`/colour/${createSlug(color.name)}`}
+              state={{ color }}
+              className="colorTile"
+            >
+              <img src={color.image} alt={color.name} />
+
+              <div className="colorInfo">
+                <h3>{color.name}</h3>
+                <span className="detailsBtn">Details</span>
+              </div>
+            </Link>
           </div>
         ))}
       </div>
+    </section>
+  );
+}
+
+function ColourDetailPage() {
+  const { slug } = useParams();
+
+  const allColours = seriesData.flatMap((series) =>
+    series.colors.map((color) => ({
+      ...color,
+      seriesName: series.name,
+      size: series.size,
+      thickness: series.thickness,
+      wear: series.wear,
+      description: series.description,
+      specs: series.specs,
+      features: series.features,
+    }))
+  );
+
+  const color = allColours.find((item) => createSlug(item.name) === slug);
+
+  if (!color) {
+    return (
+      <section className="detailPage">
+        <h1>Colour Not Found</h1>
+        <Link to="/">Back Home</Link>
+      </section>
+    );
+  }
+
+  return (
+    <section className="colourDetailPage">
+      <div className="colourDetailHero luxuryDetailHero">
+        <div>
+          <p className="eyebrow">{color.seriesName}</p>
+          <h1>{color.name}</h1>
+          <p>
+            A premium SPC flooring colour designed for modern homes, retail
+            showrooms, builders, and project applications.
+          </p>
+
+          <Link className="quoteBtn" to="/contact">
+            Request This Colour
+          </Link>
+        </div>
+
+        <img src={color.image} alt={`${color.name} SPC flooring`} />
+      </div>
+
+      <div className="quickSpecs">
+        <div>
+          <span>Series</span>
+          <strong>{color.seriesName}</strong>
+        </div>
+        <div>
+          <span>Size</span>
+          <strong>{color.size}</strong>
+        </div>
+        <div>
+          <span>Thickness</span>
+          <strong>{color.thickness}</strong>
+        </div>
+        <div>
+          <span>Wear Layer</span>
+          <strong>{color.wear}</strong>
+        </div>
+      </div>
+
+      <section className="productStory">
+        <p className="eyebrow">Product Overview</p>
+        <h2>Built for everyday performance and showroom appeal.</h2>
+        <p>{color.productDetails}</p>
+      </section>
+
+      <section className="technicalSection">
+        <div className="sectionHeading">
+          <p className="eyebrow">Technical Specifications</p>
+          <h2>Specifications</h2>
+        </div>
+
+        <div className="technicalGrid">
+          <div>
+            <span>Coverage</span>
+            <strong>{color.specs?.sqft}</strong>
+          </div>
+
+          <div>
+            <span>Weight</span>
+            <strong>{color.specs?.weight}</strong>
+          </div>
+
+          <div>
+            <span>Planks per Carton</span>
+            <strong>{color.specs?.planks}</strong>
+          </div>
+
+          <div>
+            <span>Cartons per Pallet</span>
+            <strong>{color.specs?.pallet}</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="featuresSection">
+        <div className="sectionHeading">
+          <p className="eyebrow">Why Dealers Choose It</p>
+          <h2>Features</h2>
+        </div>
+
+        <div className="featurePills">
+          {color.features?.map((item, i) => (
+            <span key={i}>{item}</span>
+          ))}
+        </div>
+      </section>
+
+      <section className="detailCTA">
+        <div>
+          <h2>Need samples or dealer pricing?</h2>
+          <p>
+            Contact Clivia Floors for availability, pricing, display samples, and
+            project support.
+          </p>
+        </div>
+
+        <Link to="/contact">Dealer Inquiry</Link>
+      </section>
     </section>
   );
 }
