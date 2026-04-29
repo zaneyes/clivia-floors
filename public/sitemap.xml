@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <url>
-    <loc>https://cliviafloors.ca/</loc>
-  </url>
-
-  <url>
-    <loc>https://cliviafloors.ca/#collections</loc>
-  </url>
-
-  <url>
-    <loc>https://cliviafloors.ca/#contact</loc>
-  </url>
+  <url><loc>https://cliviafloors.ca/</loc></url>
+  <url><loc>https://cliviafloors.ca/cl3</loc></url>
+  <url><loc>https://cliviafloors.ca/wide-plank</loc></url>
+  <url><loc>https://cliviafloors.ca/standard</loc></url>
+  <url><loc>https://cliviafloors.ca/premium</loc></url>
+  <url><loc>https://cliviafloors.ca/resources</loc></url>
+  <url><loc>https://cliviafloors.ca/contact</loc></url>
+  <url><loc>https://cliviafloors.ca/spc-flooring-canada</loc></url>
+  <url><loc>https://cliviafloors.ca/wholesale-flooring-bc</loc></url>
 
 </urlset>

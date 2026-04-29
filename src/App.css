@@ -1486,3 +1486,54 @@ footer {
   visibility: visible;
   transform: translateY(0);
 }
+
+.header nav a,
+.dropdownTrigger {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2a241f;
+  cursor: pointer;
+  text-decoration: none;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.header nav a:hover,
+.dropdownTrigger:hover {
+  color: #6b5430;
+}
+
+.dropdownMenu a {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 15px 22px;
+  color: #2b211c;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.dropdownMenu a:hover {
+  background: #f5efe6;
+  color: #6b5430;
+}
+
+.siteFooter a {
+  display: block;
+  color: rgba(255, 248, 238, 0.78);
+  text-decoration: none;
+  margin: 0 0 18px;
+  font-size: 17px;
+}
+
+.siteFooter a:hover {
+  color: #d6b27a;
+}
+
+.siteFooter .footerCTA {
+  display: inline-block;
+  width: fit-content;
+}
