@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import SpcLandingPage from "./SpcLandingPage";
 import VinylWholesalePage from "./VinylWholesalePage";
 import FlooringSupplierBCPage from "./FlooringSupplierBCPage";
@@ -235,11 +235,27 @@ function Header() {
       });
     }, 120);
   };
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
+  const allColours = useMemo(() => {
+    return seriesData.flatMap((series) =>
+      series.colors.map((color) => ({
+        ...color,
+        seriesName: series.name,
+        slug: createSlug(color.name),
+      }))
+    );
+  }, []);
+
+  const searchResults = allColours.filter((color) =>
+    color.name.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   return (
     <header className="header">
       <Link className="logo" to="/">
-        <img src="/images/logo.jpg" alt="Clivia Floors" />
+        <img src={`${BASE}images/logo.jpg`} />
       </Link>
 
       <nav>
@@ -262,6 +278,76 @@ function Header() {
         <Link to="/visualizer">Visualizer</Link>
         <Link to="/contact">Contact</Link>
       </nav>
+      <button
+        className="searchIconBtn"
+        onClick={() => setSearchOpen(true)}
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+      </button>
+
+      {searchOpen && (
+        <div className="searchOverlay">
+          <div className="searchBox">
+            <button
+              className="searchClose"
+              onClick={() => {
+                setSearchOpen(false);
+                setSearchText("");
+              }}
+            >
+              ×
+            </button>
+
+            <h2>Search Colours</h2>
+
+            <input
+              autoFocus
+              type="text"
+              placeholder="Search by colour name or code, e.g. CL1705"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+
+            <div className="searchResults">
+              {searchText && searchResults.length === 0 && (
+                <p className="noResult">No matching colours found.</p>
+              )}
+
+              {searchText &&
+                searchResults.map((color) => (
+                  <Link
+                    key={color.name}
+                    to={`/colour/${color.slug}`}
+                    className="searchResultItem"
+                    onClick={() => {
+                      setSearchOpen(false);
+                      setSearchText("");
+                    }}
+                  >
+                    <img src={color.image} alt={color.name} />
+
+                    <div>
+                      <strong>{color.name}</strong>
+                      <span>{color.seriesName}</span>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <Link className="quoteBtn" to="/contact">
         Dealer Inquiry
@@ -719,6 +805,9 @@ function Footer() {
           <Link to="/resources">Installation Guide</Link>
           <Link to="/resources">Warranty</Link>
           <Link to="/visualizer">Visualizer</Link>
+          <Link to="/spc-flooring-canada">SPC Flooring Canada</Link>
+          <Link to="/vinyl-flooring-wholesale">Vinyl Flooring Wholesale</Link>
+          <Link to="/flooring-supplier-bc">Flooring Supplier BC</Link>
         </div>
 
         <div className="footerContact">
