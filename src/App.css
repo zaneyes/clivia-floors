@@ -1324,8 +1324,19 @@ a {
   color: #f6ede1;
   font-weight: 800;
 }
+.socialLinks a {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(214, 178, 122, 0.45);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f6ede1;
+  font-weight: 800;
+}
 
-.siteFooter .footerCTA,
+/* .siteFooter .footerCTA,
 .footerCTA {
   margin-top: 18px !important;
   display: inline-flex !important;
@@ -1338,6 +1349,53 @@ a {
   border-radius: 999px !important;
   font-weight: 800;
   text-decoration: none;
+} */
+
+.siteFooter .footerCTA,
+.footerCTA {
+  margin-top: 18px !important;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: auto;
+  min-width: 0;
+
+  padding: 12px 22px !important;
+  border-radius: 999px !important;
+
+  border: 1.5px solid #d8c8b2;
+  background: transparent !important;
+  color: #f4efe7 !important;
+
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  white-space: nowrap;
+
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.footerCTA .arrow {
+  font-size: 16px;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.footerCTA:hover {
+  background: #d8c8b2 !important;
+  color: #2b211c !important;
+}
+
+.footerCTA:hover .arrow {
+  transform: translateX(4px);
+}
+
+.footerCTA {
+  letter-spacing: 0.3px;
 }
 
 .footerBottom {
@@ -1942,4 +2000,21 @@ a {
 
 .searchIconBtn:hover {
   background: rgba(107, 84, 48, 0.1);
+}
+
+.footerSocial {
+  margin-top: 16px;
+  display: flex;
+  gap: 18px;
+}
+
+.footerSocial a {
+  text-decoration: none;
+  color: #6b5430;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.footerSocial a:hover {
+  color: #2b211c;
 }

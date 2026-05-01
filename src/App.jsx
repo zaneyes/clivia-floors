@@ -267,10 +267,10 @@ function Header() {
           </button>
 
           <div className="dropdownMenu">
-            <Link to="/cl3">Clivia 6.5mm SPC 3 Series</Link>
-            <Link to="/wide-plank">Clivia 7mm SPC 170 Series</Link>
-            <Link to="/standard">Clivia 7mm SPC 173 Series</Link>
-            <Link to="/premium">Clivia 8mm SPC 18 Series</Link>
+            <Link to="/cl3">Clivia Essential (6.5mm)</Link>
+            <Link to="/wide-plank">Clivia Wide Plank (7mm)</Link>
+            <Link to="/standard">Clivia Classic (7mm)</Link>
+            <Link to="/premium">Clivia Premium (8mm)</Link>
           </div>
         </div>
 
@@ -349,9 +349,9 @@ function Header() {
         </div>
       )}
 
-      <Link className="quoteBtn" to="/contact">
+      {/* <Link className="quoteBtn" to="/contact">
         Dealer Inquiry
-      </Link>
+      </Link> */}
     </header>
   );
 }
@@ -380,15 +380,14 @@ function Home() {
 
           <p className="heroText">
             Clivia SPC flooring combines stunning wood designs with durability,
-            comfort, and performance — perfect for retail stores, builders, and
-            modern homes.
+            comfort, and performance — perfect for modern homes, renovations, light commercial spaces.
           </p>
 
           <div className="heroButtons">
             <button onClick={goCollections}>Explore Our Series</button>
-            <button className="outlineBtn" onClick={() => navigate("/contact")}>
+            {/* <button className="outlineBtn" onClick={() => navigate("/contact")}>
               Dealer Inquiry
-            </button>
+            </button> */}
           </div>
         </div>
       </section>
@@ -629,7 +628,7 @@ function ColourDetailPage() {
           </p>
         </div>
 
-        <Link to="/contact">Dealer Inquiry</Link>
+        <Link to="/contact">Contact Us</Link>
       </section>
     </section>
   );
@@ -703,7 +702,7 @@ function ContactPage() {
     <section className="contactFormPage">
       <div className="contactFormHero">
         <p className="eyebrow">Contact Us</p>
-        <h1>Dealer Inquiry</h1>
+        {/* <h1>Dealer Inquiry</h1> */}
         <p>
           Fill out the form below and our team will contact you about pricing,
           samples, availability, and dealer support.
@@ -728,7 +727,7 @@ function ContactPage() {
         <div className="formColumn">
           <h2>Company Contact Information</h2>
 
-          <input name="companyName" type="text" placeholder="Company Name *" required />
+          <input name="companyName" type="text" placeholder="Company Name" />
           <input name="companyWebsite" type="text" placeholder="Company Website" />
           <input name="companyPhone" type="tel" placeholder="Company Phone Number" />
         </div>
@@ -786,7 +785,13 @@ function Footer() {
 
           <div className="socialLinks">
             <span>f</span>
-            <span>ig</span>
+            <a
+              href="https://www.instagram.com/cliviafloors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ig
+            </a>
             <span>in</span>
           </div>
         </div>
@@ -815,6 +820,7 @@ function Footer() {
           <p>BC, Canada</p>
           <p>info@hrzfloors.com</p>
           <Link className="footerCTA" to="/contact">
+            <span className="arrow">→</span>
             Dealer Inquiry
           </Link>
         </div>
