@@ -1,6 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import SpcLandingPage from "./SpcLandingPage";
+import VinylWholesalePage from "./VinylWholesalePage";
 
 const BASE = import.meta.env.BASE_URL;
 const seriesData = [
@@ -195,7 +197,8 @@ function Site() {
         <Route path="/visualizer" element={<VisualizerPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/colour/:slug" element={<ColourDetailPage />} />
-
+        <Route path="/spc-flooring-canada" element={<SpcLandingPage />} />
+        <Route path="/vinyl-flooring-wholesale" element={<VinylWholesalePage />} />
         <Route path="/spc-flooring-canada" element={<SeoSpcCanada />} />
         <Route path="/wholesale-flooring-bc" element={<SeoWholesaleBC />} />
       </Routes>
@@ -690,7 +693,7 @@ function Footer() {
         <div className="footerBrand">
           <img src="/images/logo.jpg" alt="Clivia Floors" />
           <p>
-            Premium SPC flooring collections for retail stores, builders, and modern homes.
+            Premium SPC flooring collections for modern homes.
           </p>
 
           <div className="socialLinks">
