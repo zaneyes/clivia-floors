@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation, useParams
 import { useState, useEffect } from "react";
 import SpcLandingPage from "./SpcLandingPage";
 import VinylWholesalePage from "./VinylWholesalePage";
+import FlooringSupplierBCPage from "./FlooringSupplierBCPage";
 
 const BASE = import.meta.env.BASE_URL;
 const seriesData = [
@@ -196,6 +197,7 @@ function Site() {
         <Route path="/resources" element={<ResourcesPage />} />
         <Route path="/visualizer" element={<VisualizerPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/flooring-supplier-bc" element={<FlooringSupplierBCPage />} />
         <Route path="/colour/:slug" element={<ColourDetailPage />} />
         <Route path="/spc-flooring-canada" element={<SpcLandingPage />} />
         <Route path="/vinyl-flooring-wholesale" element={<VinylWholesalePage />} />
