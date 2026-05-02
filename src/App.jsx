@@ -251,6 +251,7 @@ function Header() {
     color.name.toLowerCase().includes(searchText.toLowerCase())
   );
   const [menuOpen, setMenuOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(true);
 
   return (
     <header className="header">
@@ -360,24 +361,60 @@ function Header() {
         ☰
       </button>
       {menuOpen && (
-        <div className="mobileMenuOverlay" onClick={() => setMenuOpen(false)}>
-          <div className="mobileMenu" onClick={(e) => e.stopPropagation()}>
-            <div className="mobileMenuTop">
+        <div className="drawerMenuOverlay" onClick={() => setMenuOpen(false)}>
+          <div className="drawerMenu" onClick={(e) => e.stopPropagation()}>
+            <div className="drawerMenuTop">
               <span>Menu</span>
-              <button onClick={() => setMenuOpen(false)}>✕</button>
+              <button onClick={() => setMenuOpen(false)}>×</button>
+            </div>
+
+
+            <div className="drawerSearch">
+              <span>⌕</span>
+              <input
+                type="text"
+                placeholder="Search ..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
             </div>
 
             <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-            <Link to="/cl3" onClick={() => setMenuOpen(false)}>Essential (6.5mm)</Link>
-            <Link to="/wide-plank" onClick={() => setMenuOpen(false)}>Wide Plank (7mm)</Link>
-            <Link to="/standard" onClick={() => setMenuOpen(false)}>Classic (7mm)</Link>
-            <Link to="/premium" onClick={() => setMenuOpen(false)}>Premium (8mm)</Link>
+
+            <button
+              className="drawerDropdownTrigger"
+              onClick={() => setProductsOpen(!productsOpen)}
+            >
+              <span>Products</span>
+              <span>{productsOpen ? "⌄" : "›"}</span>
+            </button>
+
+            {productsOpen && (
+              <div className="drawerSubMenu">
+                <Link to="/cl3" onClick={() => setMenuOpen(false)}>
+                  Essential Flooring
+                </Link>
+                <Link to="/wide-plank" onClick={() => setMenuOpen(false)}>
+                  Wide Plank Flooring
+                </Link>
+                <Link to="/standard" onClick={() => setMenuOpen(false)}>
+                  Classic Flooring
+                </Link>
+                <Link to="/premium" onClick={() => setMenuOpen(false)}>
+                  Premium Flooring
+                </Link>
+              </div>
+            )}
+
             <Link to="/resources" onClick={() => setMenuOpen(false)}>Resources</Link>
-            <Link to="/visualizer" onClick={() => setMenuOpen(false)}>Visualizer</Link>
+            <Link to="/visualizer" onClick={() => setMenuOpen(false)}>Room Visualizer</Link>
             <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+            <Link to="/contact" onClick={() => setMenuOpen(false)}>Order Samples</Link>
+            <Link to="/contact" onClick={() => setMenuOpen(false)}>Find a Dealer</Link>
           </div>
         </div>
       )}
+
     </header>
   );
 }
