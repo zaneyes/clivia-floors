@@ -2060,18 +2060,19 @@ a {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: min(360px, calc(100vw - 24px));
+  width: min(320px, 76vw);
   height: calc(100vh - 24px);
-  background: rgba(255, 253, 249, 0.94);
+  background: rgba(255, 253, 249, 0.96);
   border-radius: 28px;
   padding: 22px;
   box-shadow: -20px 0 70px rgba(0, 0, 0, 0.28);
   display: flex;
   flex-direction: column;
   gap: 6px;
-  animation: menuSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   overflow-y: auto;
+  animation: menuSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 
 .drawerMenuOverlay {
   position: fixed;
@@ -2453,8 +2454,23 @@ a {
 .drawerSubMenu {
   display: grid;
   gap: 4px;
-  padding: 2px 0 8px 14px;
-  animation: drawerSubMenuIn 0.22s ease forwards;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 0 0 14px;
+  transform: translateY(-8px);
+  transition:
+    max-height 0.34s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.22s ease,
+    padding 0.34s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.drawerSubMenu.open {
+  max-height: 260px;
+  opacity: 1;
+  padding: 6px 0 12px 14px;
+  transform: translateY(0);
 }
 
 .drawerSubMenu a {
@@ -2463,6 +2479,52 @@ a {
   padding: 0 14px;
   color: #5d4a31;
 }
+
+.drawerMenuOverlay.closing {
+  animation: drawerOverlayOut 0.28s ease forwards;
+}
+
+.drawerMenu.closing {
+  animation: drawerMenuOut 0.28s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+@keyframes drawerOverlayOut {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+  }
+}
+
+@keyframes drawerMenuOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(32px) scale(0.98);
+  }
+}
+
+@keyframes menuSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(32px) scale(0.98);
+  }
+}
+
 
 @media (max-width: 900px) {
   .header {
@@ -2492,7 +2554,8 @@ a {
 
 @media (max-width: 480px) {
   .drawerMenu {
-    width: calc(100vw - 24px);
+    width: 76vw;
+    max-width: 320px;
     padding: 20px;
   }
 
@@ -2505,3 +2568,4 @@ a {
     font-size: 16px;
   }
 }
+

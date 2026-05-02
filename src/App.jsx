@@ -252,13 +252,22 @@ function Header() {
   );
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [menuClosing, setMenuClosing] = useState(false);
 
-  useEffect(() => {
-    if (menuOpen) {
+  const openMenu = () => {
+    setMenuClosing(false);
+    setMenuOpen(true);
+  };
+
+  const closeMenu = () => {
+    setMenuClosing(true);
+
+    setTimeout(() => {
+      setMenuOpen(false);
+      setMenuClosing(false);
       setProductsOpen(false);
-    }
-  }, [menuOpen]);
-
+    }, 280);
+  };
 
   return (
     <header className="header">
@@ -363,23 +372,23 @@ function Header() {
       </Link> */}
       <button
         className="menuBtn"
-        onClick={() => setMenuOpen(true)}
+        onClick={openMenu}
       >
         ☰
       </button>
       {menuOpen && (
-        <div className="drawerMenuOverlay" onClick={() => setMenuOpen(false)}>
-          <div className="drawerMenu" onClick={(e) => e.stopPropagation()}>
+        <div className={`drawerMenuOverlay ${menuClosing ? "closing" : ""}`}
+          onClick={closeMenu}>
+          <div
+            className={`drawerMenu ${menuClosing ? "closing" : ""}`}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="drawerMenuTop">
               <span>Menu</span>
-              <button onClick={() => setMenuOpen(false)}>×</button>
+              <button onClick={closeMenu}>×</button>
             </div>
 
-
-
-
-            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-
+            <Link to="/" onClick={closeMenu}>Home</Link>
             <button
               className="drawerDropdownTrigger"
               onClick={() => setProductsOpen(!productsOpen)}
@@ -388,28 +397,44 @@ function Header() {
               <span>{productsOpen ? "⌄" : "›"}</span>
             </button>
 
-            {productsOpen && (
+            {/* {productsOpen && (
               <div className="drawerSubMenu">
                 <Link to="/cl3" onClick={() => setMenuOpen(false)}>
-                  Essential Flooring
+                  Essential (6.5mm)
                 </Link>
                 <Link to="/wide-plank" onClick={() => setMenuOpen(false)}>
-                  Wide Plank Flooring
+                  Wide Plank Flooring (7mm)
                 </Link>
                 <Link to="/standard" onClick={() => setMenuOpen(false)}>
-                  Classic Flooring
+                  Classic Flooring (7mm)
                 </Link>
                 <Link to="/premium" onClick={() => setMenuOpen(false)}>
-                  Premium Flooring
+                  Premium Flooring (8mm)
                 </Link>
               </div>
-            )}
+            )} */}
 
-            <Link to="/resources" onClick={() => setMenuOpen(false)}>Resources</Link>
-            <Link to="/visualizer" onClick={() => setMenuOpen(false)}>Room Visualizer</Link>
-            <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
-            <Link to="/contact" onClick={() => setMenuOpen(false)}>Order Samples</Link>
-            <Link to="/contact" onClick={() => setMenuOpen(false)}>Find a Dealer</Link>
+            <div className={`drawerSubMenu ${productsOpen ? "open" : ""}`}>
+              <Link to="/cl3" onClick={closeMenu}>
+                Essential (6.5mm)
+              </Link>
+              <Link to="/wide-plank" onClick={closeMenu}>
+                Wide Plank Flooring (7mm)
+              </Link>
+              <Link to="/standard" onClick={closeMenu}>
+                Classic Flooring (7mm)
+              </Link>
+              <Link to="/premium" onClick={closeMenu}>
+                Premium Flooring (8mm)
+              </Link>
+            </div>
+
+
+            <Link to="/resources" onClick={closeMenu}>Resources</Link>
+            <Link to="/visualizer" onClick={closeMenu}>Room Visualizer</Link>
+            <Link to="/contact" onClick={closeMenu}>Contact</Link>
+            <Link to="/contact" onClick={closeMenu}>Order Samples</Link>
+            <Link to="/contact" onClick={closeMenu}>Find a Dealer</Link>
           </div>
         </div>
       )}
