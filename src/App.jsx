@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import SpcLandingPage from "./SpcLandingPage";
 import VinylWholesalePage from "./VinylWholesalePage";
 import FlooringSupplierBCPage from "./FlooringSupplierBCPage";
+import Blog from "./Blog";
 
 const BASE = import.meta.env.BASE_URL;
 const seriesData = [
@@ -196,6 +197,7 @@ function Site() {
         <Route path="/premium" element={<SeriesPage seriesId="premium" setSelectedColor={setSelectedColor} />} />
         <Route path="/resources" element={<ResourcesPage />} />
         <Route path="/visualizer" element={<VisualizerPage />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/flooring-supplier-bc" element={<FlooringSupplierBCPage />} />
         <Route path="/colour/:slug" element={<ColourDetailPage />} />
@@ -294,6 +296,7 @@ function Header() {
 
         <Link to="/resources">Resources</Link>
         <Link to="/visualizer">Visualizer</Link>
+        {/* <Link to="/blog">Blog</Link> */}
         <Link to="/contact">Contact</Link>
       </nav>
       <button

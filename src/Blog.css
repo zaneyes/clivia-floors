@@ -1,0 +1,272 @@
+
+
+.blogPage {
+  background: #f7f4ef;
+  color: #2a211d;
+}
+
+.blogHero {
+  padding: 120px 24px 80px;
+  text-align: center;
+}
+
+.blogHeroContent {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.blogEyebrow,
+.blogCategory {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a6f5a;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.blogHero h1 {
+  font-size: clamp(42px, 6vw, 76px);
+  line-height: 1.05;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.blogHeroText {
+  font-size: 19px;
+  line-height: 1.7;
+  color: #6f625b;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.featuredBlog {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 30px 24px 90px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.featuredImage {
+  border-radius: 34px;
+  overflow: hidden;
+  min-height: 460px;
+  background: #ddd;
+}
+
+.featuredImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.featuredContent {
+  background: #2a211d;
+  color: #fff;
+  border-radius: 34px;
+  padding: 56px;
+}
+
+.featuredContent h2 {
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.12;
+  margin-bottom: 22px;
+}
+
+.featuredContent p {
+  color: #d8d0ca;
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.blogButton,
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #2a211d;
+  padding: 15px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.blogButton:hover,
+.ctaButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.88;
+}
+
+.blogGridSection {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 24px 100px;
+}
+
+.sectionHeader {
+  max-width: 720px;
+  margin-bottom: 42px;
+}
+
+.sectionHeader h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.blogCard {
+  background: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 18px 45px rgba(42, 33, 29, 0.08);
+  transition: all 0.25s ease;
+}
+
+.blogCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 55px rgba(42, 33, 29, 0.12);
+}
+
+.blogImageWrap {
+  display: block;
+  height: 260px;
+  background: #ddd;
+  overflow: hidden;
+}
+
+.blogImageWrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.blogCard:hover img {
+  transform: scale(1.05);
+}
+
+.blogCardContent {
+  padding: 28px;
+}
+
+.blogMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 12px;
+  color: #8a6f5a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+}
+
+.blogCard h3 {
+  font-size: 23px;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.blogCard h3 a {
+  color: #2a211d;
+  text-decoration: none;
+}
+
+.blogCard p {
+  color: #6f625b;
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+.readMore {
+  color: #2a211d;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.blogCTA {
+  max-width: 1180px;
+  margin: 0 auto 100px;
+  padding: 52px;
+  border-radius: 34px;
+  background: #2a211d;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.blogCTA h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  margin-bottom: 14px;
+}
+
+.blogCTA p {
+  color: #d8d0ca;
+  max-width: 620px;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .featuredBlog,
+  .blogGrid,
+  .blogCTA {
+    grid-template-columns: 1fr;
+  }
+
+  .blogGrid {
+    display: grid;
+  }
+
+  .featuredContent {
+    padding: 38px;
+  }
+
+  .blogCTA {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 24px 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .blogHero {
+    padding: 90px 20px 55px;
+  }
+
+  .featuredBlog {
+    padding-bottom: 60px;
+  }
+
+  .featuredImage {
+    min-height: 300px;
+    border-radius: 26px;
+  }
+
+  .featuredContent {
+    border-radius: 26px;
+    padding: 30px;
+  }
+
+  .blogImageWrap {
+    height: 220px;
+  }
+
+  .blogCTA {
+    padding: 34px;
+    border-radius: 26px;
+  }
+}
