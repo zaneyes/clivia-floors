@@ -598,6 +598,7 @@ function SeriesPage({ seriesId, setSelectedColor }) {
 
 function ColourDetailPage() {
   const { slug } = useParams();
+  const navigate = useNavigate();
 
   const allColours = seriesData.flatMap((series) =>
     series.colors.map((color) => ({
@@ -625,6 +626,7 @@ function ColourDetailPage() {
 
   return (
     <section className="colourDetailPage">
+      
       <div className="colourDetailHero luxuryDetailHero">
         <div>
           <p className="eyebrow">{color.seriesName}</p>
@@ -711,6 +713,20 @@ function ColourDetailPage() {
             <span key={i}>{item}</span>
           ))}
         </div>
+        <div className="detailBackArea">
+        <button
+          className="backBtn"
+          onClick={() => {
+            if (window.history.length > 1) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
+        >
+          ← View More Colours
+        </button>
+      </div>
       </section>
 
       <section className="detailCTA">

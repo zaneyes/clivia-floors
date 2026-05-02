@@ -2569,3 +2569,23 @@ a {
   }
 }
 
+.detailBackArea {
+  text-align: center;
+  margin: 50px 0 80px;
+}
+
+.backBtn {
+  padding: 13px 28px;
+  border-radius: 999px;
+  border: 1px solid #2a211d;
+  background: transparent;
+  color: #2a211d;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.backBtn:hover {
+  background: #2a211d;
+  color: #fff;
+}
