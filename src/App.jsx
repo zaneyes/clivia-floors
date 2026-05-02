@@ -251,6 +251,7 @@ function Header() {
   const searchResults = allColours.filter((color) =>
     color.name.toLowerCase().includes(searchText.toLowerCase())
   );
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="header">
@@ -259,6 +260,7 @@ function Header() {
       </Link>
 
       <nav>
+
         <Link to="/">Home</Link>
 
         <div className="navDropdown">
@@ -352,6 +354,31 @@ function Header() {
       {/* <Link className="quoteBtn" to="/contact">
         Dealer Inquiry
       </Link> */}
+      <button
+        className="menuBtn"
+        onClick={() => setMenuOpen(true)}
+      >
+        ☰
+      </button>
+      {menuOpen && (
+        <div className="mobileMenuOverlay" onClick={() => setMenuOpen(false)}>
+          <div className="mobileMenu" onClick={(e) => e.stopPropagation()}>
+            <div className="mobileMenuTop">
+              <span>Menu</span>
+              <button onClick={() => setMenuOpen(false)}>✕</button>
+            </div>
+
+            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/cl3" onClick={() => setMenuOpen(false)}>Essential (6.5mm)</Link>
+            <Link to="/wide-plank" onClick={() => setMenuOpen(false)}>Wide Plank (7mm)</Link>
+            <Link to="/standard" onClick={() => setMenuOpen(false)}>Classic (7mm)</Link>
+            <Link to="/premium" onClick={() => setMenuOpen(false)}>Premium (8mm)</Link>
+            <Link to="/resources" onClick={() => setMenuOpen(false)}>Resources</Link>
+            <Link to="/visualizer" onClick={() => setMenuOpen(false)}>Visualizer</Link>
+            <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
