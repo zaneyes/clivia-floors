@@ -251,7 +251,14 @@ function Header() {
     color.name.toLowerCase().includes(searchText.toLowerCase())
   );
   const [menuOpen, setMenuOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(true);
+  const [productsOpen, setProductsOpen] = useState(false);
+
+  useEffect(() => {
+    if (menuOpen) {
+      setProductsOpen(false);
+    }
+  }, [menuOpen]);
+
 
   return (
     <header className="header">
@@ -369,15 +376,7 @@ function Header() {
             </div>
 
 
-            <div className="drawerSearch">
-              <span>⌕</span>
-              <input
-                type="text"
-                placeholder="Search ..."
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
-            </div>
+
 
             <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
 
