@@ -36,7 +36,7 @@ const seriesData = [
       { name: "CL324 - Boston Bar", image: `${BASE}images/CL324.jpg` },
       { name: "CL325 - Osoyoos", image: `${BASE}images/CL325.jpg` },
       { name: "CL326 - Mistaya", image: `${BASE}images/CL326.jpg` },
-      { name: "CL327 - Eagle Blains", image: `${BASE}images/CL327.jpg` },
+      { name: "CL327 - Eagle Plains", image: `${BASE}images/CL327.jpg` },
       { name: "CL328 - Sunshine Coast", image: `${BASE}images/CL328.jpg` },
       { name: "CL329 - Rose Valley", image: `${BASE}images/CL329.jpg` },
       { name: "CL330 - Skaha", image: `${BASE}images/CL330.jpg` },
@@ -201,7 +201,6 @@ function Site() {
         <Route path="/colour/:slug" element={<ColourDetailPage />} />
         <Route path="/spc-flooring-canada" element={<SpcLandingPage />} />
         <Route path="/vinyl-flooring-wholesale" element={<VinylWholesalePage />} />
-        <Route path="/spc-flooring-canada" element={<SeoSpcCanada />} />
         <Route path="/wholesale-flooring-bc" element={<SeoWholesaleBC />} />
       </Routes>
 
@@ -513,22 +512,22 @@ function SeriesPage({ seriesId, setSelectedColor }) {
 
       <div className="colorGrid">
         {selectedSeries.colors.map((color) => (
-          <div className="colorTile" key={color.name}>
-            <Link
-              to={`/colour/${createSlug(color.name)}`}
-              state={{ color }}
-              className="colorTile"
-            >
-              <img src={color.image} alt={color.name} />
+          <Link
+            key={color.name}
+            to={`/colour/${createSlug(color.name)}`}
+            state={{ color }}
+            className="colorTile"
+          >
+            <img src={color.image} alt={color.name} />
 
-              <div className="colorInfo">
-                <h3>{color.name}</h3>
-                <span className="detailsBtn">Details</span>
-              </div>
-            </Link>
-          </div>
+            <div className="colorInfo">
+              <h3>{color.name}</h3>
+              <span className="detailsBtn">Details</span>
+            </div>
+          </Link>
         ))}
       </div>
+
     </section>
   );
 }
@@ -601,7 +600,11 @@ function ColourDetailPage() {
       <section className="productStory">
         <p className="eyebrow">Product Overview</p>
         <h2>Built for everyday performance and showroom appeal.</h2>
-        <p>{color.productDetails}</p>
+        <p>
+          {color.name} is part of the {color.seriesName} collection, offering durable,
+          waterproof SPC flooring with a realistic wood look for residential and light
+          commercial spaces.
+        </p>
       </section>
 
       <section className="technicalSection">
@@ -674,7 +677,8 @@ function ResourcesPage() {
       </div>
 
       <div className="resourceGrid">
-        <a className="resourceCard" href="/resources/clivia_floors_specs.pdf" download>
+        <a className="resourceCard" href={`${BASE}resources/clivia_floors_specs.pdf`}
+          download>
           <h3>Spec Sheets</h3>
           <p>Product specifications, series details, carton information, and warranty data.</p>
           <span>Download PDF</span>
@@ -805,7 +809,8 @@ function Footer() {
     <footer className="siteFooter">
       <div className="footerGrid">
         <div className="footerBrand">
-          <img src="/images/logo.jpg" alt="Clivia Floors" />
+          <img src={`${BASE}images/logo.jpg`} alt="Clivia Floors" />
+
           <p>
             Premium SPC flooring collections for modern homes.
           </p>
