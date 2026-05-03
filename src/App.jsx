@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import SpcLandingPage from "./SpcLandingPage";
 import VinylWholesalePage from "./VinylWholesalePage";
 import FlooringSupplierBCPage from "./FlooringSupplierBCPage";
+import FindDealerPage from "./FindDealerPage";
 import Blog from "./Blog";
 
 const BASE = import.meta.env.BASE_URL;
@@ -201,6 +202,7 @@ function Site() {
         <Route path="/premium" element={<SeriesPage seriesId="premium" setSelectedColor={setSelectedColor} />} />
         <Route path="/resources" element={<ResourcesPage />} />
         <Route path="/visualizer" element={<VisualizerPage />} />
+        <Route path="/find-a-dealer" element={<FindDealerPage />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/flooring-supplier-bc" element={<FlooringSupplierBCPage />} />
@@ -294,7 +296,7 @@ function Header() {
 
         <nav>
 
-          <Link onClick={goHome}>Home</Link>
+          <Link to="/" onClick={goHome}>Home</Link>
 
           <div className="navDropdown">
             <button className="dropdownTrigger" onClick={goCollections}>
@@ -311,6 +313,7 @@ function Header() {
 
           <Link to="/resources">Resources</Link>
           <Link to="/visualizer">Visualizer</Link>
+          <Link to="/find-a-dealer" onClick={closeMenu}>Find a Dealer</Link>
           {/* <Link to="/blog">Blog</Link> */}
           <Link to="/contact">Contact</Link>
         </nav>
@@ -466,7 +469,7 @@ function Header() {
             <Link to="/visualizer" onClick={closeMenu}>Room Visualizer</Link>
             <Link to="/contact" onClick={closeMenu}>Contact</Link>
             <Link to="/contact" onClick={closeMenu}>Order Samples</Link>
-            <Link to="/contact" onClick={closeMenu}>Find a Dealer</Link>
+            <Link to="/find-a-dealer" onClick={closeMenu}>Find a Dealer</Link>
           </div>
         </div>
       )}
@@ -774,8 +777,8 @@ function ColourDetailPage() {
             showrooms, builders, and project applications.
           </p>
 
-          <Link className="quoteBtn" to="/contact">
-            Request This Colour
+          <Link className="quoteBtn" to="/find-a-dealer">
+            Find A Dealer
           </Link>
         </div>
 
