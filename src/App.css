@@ -2056,33 +2056,9 @@ a {
 }
 
 /* mobile slide menu */
-.drawerMenu {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: min(320px, 76vw);
-  height: calc(100vh - 24px);
-  background: rgba(255, 253, 249, 0.96);
-  border-radius: 28px;
-  padding: 22px;
-  box-shadow: -20px 0 70px rgba(0, 0, 0, 0.28);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  overflow-y: auto;
-  animation: menuSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
 
 
-.drawerMenuOverlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(20, 15, 12, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  animation: menuFadeIn 0.22s ease forwards;
-}
+
 
 .drawerMenuTop {
   display: flex;
@@ -2321,32 +2297,9 @@ a {
   }
 }
 /* mobile glass drawer menu */
-.drawerMenuOverlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(20, 15, 12, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  animation: menuFadeIn 0.22s ease forwards;
-}
 
-.drawerMenu {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: min(360px, calc(100vw - 24px));
-  height: calc(100vh - 24px);
-  background: rgba(255, 253, 249, 0.96);
-  border-radius: 28px;
-  padding: 22px;
-  box-shadow: -20px 0 70px rgba(0, 0, 0, 0.28);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  overflow-y: auto;
-  animation: menuSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+
+
 
 .drawerMenuTop {
   display: flex;
@@ -2588,4 +2541,49 @@ a {
 .backBtn:hover {
   background: #2a211d;
   color: #fff;
+}
+
+
+.drawerSubMenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease;
+}
+
+.drawerSubMenu.open {
+  max-height: 300px;
+}
+/* Mobile drawer fix */
+
+
+
+/* FINAL FIX — DO NOT OVERRIDE BELOW */
+
+/* FINAL — ONLY ONE VERSION */
+
+.drawerMenuOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(20, 15, 12, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 22px;
+  overflow: hidden;
+}
+
+.drawerMenu {
+  position: relative;
+  z-index: 1000000;
+
+  width: min(86vw, 420px);
+  max-height: calc(100dvh - 36px);
+  height: auto;
+
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  background: #fffdf9;   /* 不要 rgba */
+  border-radius: 34px;
 }

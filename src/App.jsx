@@ -236,6 +236,16 @@ function Header() {
       });
     }, 120);
   };
+  const goHome = () => {
+    if (window.location.pathname === "/") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } else {
+      navigate("/");
+    }
+  };
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
 
@@ -272,6 +282,7 @@ function Header() {
   };
 
   return (
+    <>
     <header className="header">
       <Link className="logo" to="/">
         <img src={`${BASE}images/logo.jpg`} />
@@ -279,7 +290,7 @@ function Header() {
 
       <nav>
 
-        <Link to="/">Home</Link>
+        <Link onClick={goHome}>Home</Link>
 
         <div className="navDropdown">
           <button className="dropdownTrigger" onClick={goCollections}>
@@ -379,7 +390,10 @@ function Header() {
       >
         ☰
       </button>
-      {menuOpen && (
+      
+    </header>
+
+    {menuOpen && (
         <div className={`drawerMenuOverlay ${menuClosing ? "closing" : ""}`}
           onClick={closeMenu}>
           <div
@@ -397,7 +411,7 @@ function Header() {
               onClick={() => setProductsOpen(!productsOpen)}
             >
               <span>Products</span>
-              <span>{productsOpen ? "⌄" : "›"}</span>
+              <span>{productsOpen ? "⌃" : "⌄"}</span>
             </button>
 
             {/* {productsOpen && (
@@ -418,18 +432,10 @@ function Header() {
             )} */}
 
             <div className={`drawerSubMenu ${productsOpen ? "open" : ""}`}>
-              <Link to="/cl3" onClick={closeMenu}>
-                Essential (6.5mm)
-              </Link>
-              <Link to="/wide-plank" onClick={closeMenu}>
-                Wide Plank Flooring (7mm)
-              </Link>
-              <Link to="/standard" onClick={closeMenu}>
-                Classic Flooring (7mm)
-              </Link>
-              <Link to="/premium" onClick={closeMenu}>
-                Premium Flooring (8mm)
-              </Link>
+              <Link to="/cl3" onClick={closeMenu}>Essential 6.5mm</Link>
+              <Link to="/wide-plank" onClick={closeMenu}>Wide Plank 7mm</Link>
+              <Link to="/standard" onClick={closeMenu}>Classic 7mm</Link>
+              <Link to="/premium" onClick={closeMenu}>Premium 8mm</Link>
             </div>
 
 
@@ -441,8 +447,7 @@ function Header() {
           </div>
         </div>
       )}
-
-    </header>
+      </>
   );
 }
 
@@ -626,7 +631,7 @@ function ColourDetailPage() {
 
   return (
     <section className="colourDetailPage">
-      
+
       <div className="colourDetailHero luxuryDetailHero">
         <div>
           <p className="eyebrow">{color.seriesName}</p>
@@ -714,19 +719,19 @@ function ColourDetailPage() {
           ))}
         </div>
         <div className="detailBackArea">
-        <button
-          className="backBtn"
-          onClick={() => {
-            if (window.history.length > 1) {
-              navigate(-1);
-            } else {
-              navigate("/");
-            }
-          }}
-        >
-          ← View More Colours
-        </button>
-      </div>
+          <button
+            className="backBtn"
+            onClick={() => {
+              if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate("/");
+              }
+            }}
+          >
+            ← View More Colours
+          </button>
+        </div>
       </section>
 
       <section className="detailCTA">
