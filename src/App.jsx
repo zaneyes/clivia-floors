@@ -658,18 +658,28 @@ function ColourDetailPage() {
 
   const handleTouchStart = (e) => {
     setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(null);
+    setDragX(0);
   };
 
   const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    const currentX = e.targetTouches[0].clientX;
+    setTouchEnd(currentX);
+
+    if (touchStart) {
+      setDragX(currentX - touchStart);
+    }
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd) {
+      setDragX(0);
+      return;
+    }
 
     const distance = touchStart - touchEnd;
 
-    if (distance > 60) {
+    if (distance > 70) {
       setSwipeDirection("slideLeft");
 
       setTimeout(() => {
@@ -677,10 +687,9 @@ function ColourDetailPage() {
           state: { fromSwipe: true },
         });
         setSwipeDirection("");
+        setDragX(0);
       }, 180);
-    }
-
-    if (distance < -60) {
+    } else if (distance < -70) {
       setSwipeDirection("slideRight");
 
       setTimeout(() => {
@@ -688,7 +697,10 @@ function ColourDetailPage() {
           state: { fromSwipe: true },
         });
         setSwipeDirection("");
+        setDragX(0);
       }, 180);
+    } else {
+      setDragX(0);
     }
 
     setTouchStart(null);
@@ -696,6 +708,22 @@ function ColourDetailPage() {
   };
 
   const [swipeDirection, setSwipeDirection] = useState("");
+
+  const [imageOpen, setImageOpen] = useState(false);
+
+  const goPrevImage = () => {
+    navigate(`/colour/${createSlug(prevColor.name)}`, {
+      state: { fromSwipe: true },
+    });
+  };
+
+  const goNextImage = () => {
+    navigate(`/colour/${createSlug(nextColor.name)}`, {
+      state: { fromSwipe: true },
+    });
+  };
+
+  const [dragX, setDragX] = useState(0);
 
   if (!color) {
     return (
@@ -753,11 +781,17 @@ function ColourDetailPage() {
 
         <div
           className={`colourImageBox swipeImageBox ${swipeDirection}`}
+          style={{ transform: dragX ? `translateX(${dragX}px)` : undefined }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <img src={color.image} alt={`${color.name} SPC flooring`} />
+          <img
+            src={color.image}
+            alt={`${color.name} SPC flooring`}
+            onClick={() => setImageOpen(true)}
+            className="clickableProductImage"
+          />
           <div className="swipeHint">Swipe left or right</div>
           <div className="colourInlineSwitch">
             <Link to={`/colour/${createSlug(prevColor.name)}`}>
@@ -869,6 +903,53 @@ function ColourDetailPage() {
 
         <Link to="/contact">Contact Us</Link>
       </section>
+      {imageOpen && (
+        <div
+          className="modal productImageModal"
+          onClick={() => setImageOpen(false)}
+        >
+          <div
+            className="modalContent productImageModalContent"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="closeBtn" onClick={() => setImageOpen(false)}>
+              ×
+            </button>
+
+            <button
+              className="modalArrow modalArrowLeft"
+              onClick={(e) => {
+                e.stopPropagation();
+                goPrevImage();
+              }}
+            >
+              ‹
+            </button>
+
+            <div
+              className={`modalSwipeImageBox ${swipeDirection}`}
+              style={{ transform: dragX ? `translateX(${dragX}px)` : undefined }}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <img src={color.image} alt={color.name} />
+            </div>
+
+            <button
+              className="modalArrow modalArrowRight"
+              onClick={(e) => {
+                e.stopPropagation();
+                goNextImage();
+              }}
+            >
+              ›
+            </button>
+
+            <h2>{color.name}</h2>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

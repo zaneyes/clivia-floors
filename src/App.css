@@ -806,21 +806,22 @@ a {
 .modal {
   position: fixed;
   inset: 0;
+  z-index: 999999 !important;
   background: rgba(0, 0, 0, 0.78);
-  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  padding: 24px;
 }
 
 .modalContent {
   position: relative;
+  width: min(92vw, 980px);
+  max-height: 88vh;
+  overflow: auto;
   background: white;
   border-radius: 28px;
-  padding: 24px;
-  max-width: 900px;
-  width: 100%;
+  padding: 28px;
 }
 
 .modalContent img {
@@ -853,6 +854,7 @@ a {
   border-radius: 999px;
   font-size: 26px;
   cursor: pointer;
+  z-index: 1000000;
 }
 
 /* =========================================================
@@ -2753,14 +2755,11 @@ a {
   }
 }
 
-.swipeImageBox {
-  touch-action: pan-y;
-  user-select: none;
-}
 
-.swipeImageBox img {
+
+/* .swipeImageBox img {
   pointer-events: none;
-}
+} */
 
 .swipeHint {
   text-align: center;
@@ -2783,18 +2782,16 @@ a {
 }
 
 .swipeImageBox.slideLeft {
-  transform: translateX(-28px);
-  opacity: 0.55;
+  transform: translateX(-90px) !important;
+  opacity: 0.45;
 }
 
 .swipeImageBox.slideRight {
-  transform: translateX(28px);
-  opacity: 0.55;
+  transform: translateX(90px) !important;
+  opacity: 0.45;
 }
 
-.swipeImageBox img {
-  pointer-events: none;
-}
+
 
 @media (max-width: 768px) {
   .colourInlineSwitch {
@@ -2805,4 +2802,82 @@ a {
     opacity: 0.7;
     font-size: 12px;
   }
+}
+
+.clickableProductImage {
+  cursor: zoom-in;
+}
+
+.productImageModal {
+  z-index: 999999 !important;
+}
+
+.productImageModalContent {
+  position: relative;
+}
+
+.modalArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+
+  font-size: 36px;
+  line-height: 1;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000001;
+}
+
+.modalArrowLeft {
+  left: 18px;
+}
+
+.modalArrowRight {
+  right: 18px;
+}
+
+.modalArrow:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 768px) {
+  .modalArrow {
+    display: none;
+  }
+}
+
+.modalSwipeImageBox {
+  touch-action: pan-y;
+  user-select: none;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.modalSwipeImageBox img {
+  width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.modalSwipeImageBox.slideLeft {
+  transform: translateX(-90px) !important;
+  opacity: 0.45;
+}
+
+.modalSwipeImageBox.slideRight {
+  transform: translateX(90px) !important;
+  opacity: 0.45;
 }
