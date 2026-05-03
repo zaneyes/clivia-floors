@@ -168,16 +168,20 @@ function App() {
 }
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
 
   useEffect(() => {
+    if (pathname.startsWith("/colour/") && state?.fromSwipe) {
+      return;
+    }
+
     document.documentElement.style.scrollBehavior = "auto";
     window.scrollTo(0, 0);
 
     setTimeout(() => {
       document.documentElement.style.scrollBehavior = "smooth";
     }, 100);
-  }, [pathname]);
+  }, [pathname, state]);
 
   return null;
 }
@@ -639,6 +643,60 @@ function ColourDetailPage() {
 
   const color = allColours.find((item) => createSlug(item.name) === slug);
 
+  const currentIndex = allColours.findIndex(
+    (item) => createSlug(item.name) === slug
+  );
+
+  const prevColor =
+    allColours[(currentIndex - 1 + allColours.length) % allColours.length];
+
+  const nextColor =
+    allColours[(currentIndex + 1) % allColours.length];
+
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+
+    if (distance > 60) {
+      setSwipeDirection("slideLeft");
+
+      setTimeout(() => {
+        navigate(`/colour/${createSlug(nextColor.name)}`, {
+          state: { fromSwipe: true },
+        });
+        setSwipeDirection("");
+      }, 180);
+    }
+
+    if (distance < -60) {
+      setSwipeDirection("slideRight");
+
+      setTimeout(() => {
+        navigate(`/colour/${createSlug(prevColor.name)}`, {
+          state: { fromSwipe: true },
+        });
+        setSwipeDirection("");
+      }, 180);
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
+  const [swipeDirection, setSwipeDirection] = useState("");
+
   if (!color) {
     return (
       <section className="detailPage">
@@ -650,6 +708,34 @@ function ColourDetailPage() {
 
   return (
     <section className="colourDetailPage">
+      <div className="productTopBack">
+        <button
+          className="backBtnTop"
+          onClick={() => {
+            if (window.history.length > 1) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
+        >
+          ← Back to Colours
+        </button>
+      </div>
+      <div className="topBackBar">
+        <button
+          className="floatingBackBtn"
+          onClick={() => {
+            if (window.history.length > 1) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
+        >
+          ←
+        </button>
+      </div>
 
       <div className="colourDetailHero luxuryDetailHero">
         <div>
@@ -665,7 +751,26 @@ function ColourDetailPage() {
           </Link>
         </div>
 
-        <img src={color.image} alt={`${color.name} SPC flooring`} />
+        <div
+          className={`colourImageBox swipeImageBox ${swipeDirection}`}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <img src={color.image} alt={`${color.name} SPC flooring`} />
+          <div className="swipeHint">Swipe left or right</div>
+          <div className="colourInlineSwitch">
+            <Link to={`/colour/${createSlug(prevColor.name)}`}>
+              ← <span className="fullName">{prevColor.name}</span>
+              <span className="shortName">{prevColor.name.split(" - ")[1]}</span>
+            </Link>
+
+            <Link to={`/colour/${createSlug(nextColor.name)}`}>
+              <span className="fullName">{nextColor.name}</span>
+              <span className="shortName">{nextColor.name.split(" - ")[1]}</span> →
+            </Link>
+          </div>
+        </div>
       </div>
 
       <div className="quickSpecs">
