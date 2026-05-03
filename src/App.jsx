@@ -283,117 +283,117 @@ function Header() {
 
   return (
     <>
-    <header className="header">
-      <Link className="logo" to="/">
-        <img src={`${BASE}images/logo.jpg`} />
-      </Link>
+      <header className="header">
+        <Link className="logo" to="/">
+          <img src={`${BASE}images/logo.jpg`} />
+        </Link>
 
-      <nav>
+        <nav>
 
-        <Link onClick={goHome}>Home</Link>
+          <Link onClick={goHome}>Home</Link>
 
-        <div className="navDropdown">
-          <button className="dropdownTrigger" onClick={goCollections}>
-            Series ▾
-          </button>
-
-          <div className="dropdownMenu">
-            <Link to="/cl3">Clivia Essential (6.5mm)</Link>
-            <Link to="/wide-plank">Clivia Wide Plank (7mm)</Link>
-            <Link to="/standard">Clivia Classic (7mm)</Link>
-            <Link to="/premium">Clivia Premium (8mm)</Link>
-          </div>
-        </div>
-
-        <Link to="/resources">Resources</Link>
-        <Link to="/visualizer">Visualizer</Link>
-        {/* <Link to="/blog">Blog</Link> */}
-        <Link to="/contact">Contact</Link>
-      </nav>
-      <button
-        className="searchIconBtn"
-        onClick={() => setSearchOpen(true)}
-      >
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
-      </button>
-
-      {searchOpen && (
-        <div className="searchOverlay">
-          <div className="searchBox">
-            <button
-              className="searchClose"
-              onClick={() => {
-                setSearchOpen(false);
-                setSearchText("");
-              }}
-            >
-              ×
+          <div className="navDropdown">
+            <button className="dropdownTrigger" onClick={goCollections}>
+              Series ▾
             </button>
 
-            <h2>Search Colours</h2>
-
-            <input
-              autoFocus
-              type="text"
-              placeholder="Search by colour name or code, e.g. CL1705"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-
-            <div className="searchResults">
-              {searchText && searchResults.length === 0 && (
-                <p className="noResult">No matching colours found.</p>
-              )}
-
-              {searchText &&
-                searchResults.map((color) => (
-                  <Link
-                    key={color.name}
-                    to={`/colour/${color.slug}`}
-                    className="searchResultItem"
-                    onClick={() => {
-                      setSearchOpen(false);
-                      setSearchText("");
-                    }}
-                  >
-                    <img src={color.image} alt={color.name} />
-
-                    <div>
-                      <strong>{color.name}</strong>
-                      <span>{color.seriesName}</span>
-                    </div>
-                  </Link>
-                ))}
+            <div className="dropdownMenu">
+              <Link to="/cl3">Clivia Essential (6.5mm)</Link>
+              <Link to="/wide-plank">Clivia Wide Plank (7mm)</Link>
+              <Link to="/standard">Clivia Classic (7mm)</Link>
+              <Link to="/premium">Clivia Premium (8mm)</Link>
             </div>
           </div>
-        </div>
-      )}
 
-      {/* <Link className="quoteBtn" to="/contact">
+          <Link to="/resources">Resources</Link>
+          <Link to="/visualizer">Visualizer</Link>
+          {/* <Link to="/blog">Blog</Link> */}
+          <Link to="/contact">Contact</Link>
+        </nav>
+        <button
+          className="searchIconBtn"
+          onClick={() => setSearchOpen(true)}
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </button>
+
+        {searchOpen && (
+          <div className="searchOverlay">
+            <div className="searchBox">
+              <button
+                className="searchClose"
+                onClick={() => {
+                  setSearchOpen(false);
+                  setSearchText("");
+                }}
+              >
+                ×
+              </button>
+
+              <h2>Search Colours</h2>
+
+              <input
+                autoFocus
+                type="text"
+                placeholder="Search by colour name or code, e.g. CL1705"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+
+              <div className="searchResults">
+                {searchText && searchResults.length === 0 && (
+                  <p className="noResult">No matching colours found.</p>
+                )}
+
+                {searchText &&
+                  searchResults.map((color) => (
+                    <Link
+                      key={color.name}
+                      to={`/colour/${color.slug}`}
+                      className="searchResultItem"
+                      onClick={() => {
+                        setSearchOpen(false);
+                        setSearchText("");
+                      }}
+                    >
+                      <img src={color.image} alt={color.name} />
+
+                      <div>
+                        <strong>{color.name}</strong>
+                        <span>{color.seriesName}</span>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* <Link className="quoteBtn" to="/contact">
         Dealer Inquiry
       </Link> */}
-      <button
-        className="menuBtn"
-        onClick={openMenu}
-      >
-        ☰
-      </button>
-      
-    </header>
+        <button
+          className="menuBtn"
+          onClick={openMenu}
+        >
+          ☰
+        </button>
 
-    {menuOpen && (
+      </header>
+
+      {menuOpen && (
         <div className={`drawerMenuOverlay ${menuClosing ? "closing" : ""}`}
           onClick={closeMenu}>
           <div
@@ -405,7 +405,26 @@ function Header() {
               <button onClick={closeMenu}>×</button>
             </div>
 
-            <Link to="/" onClick={closeMenu}>Home</Link>
+            <Link
+              to="/"
+              onClick={(e) => {
+                if (window.location.pathname === "/") {
+                  e.preventDefault();
+                  closeMenu();
+
+                  setTimeout(() => {
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
+                  }, 300);
+                } else {
+                  closeMenu();
+                }
+              }}
+            >
+              Home
+            </Link>
             <button
               className="drawerDropdownTrigger"
               onClick={() => setProductsOpen(!productsOpen)}
@@ -447,7 +466,7 @@ function Header() {
           </div>
         </div>
       )}
-      </>
+    </>
   );
 }
 
