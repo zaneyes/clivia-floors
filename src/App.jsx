@@ -627,9 +627,158 @@ function SeriesPage({ seriesId, setSelectedColor }) {
   );
 }
 
+function ReducerDiagram() {
+  return (
+    <svg viewBox="0 0 420 170" className="mouldingDiagram">
+      <line x1="80" y1="25" x2="330" y2="25" stroke="#bbb" />
+      <line x1="80" y1="18" x2="80" y2="35" stroke="#bbb" />
+      <line x1="330" y1="18" x2="330" y2="35" stroke="#bbb" />
+      <text x="205" y="18" textAnchor="middle">45mm</text>
+
+      <line x1="60" y1="62" x2="60" y2="108" stroke="#bbb" />
+      <line x1="52" y1="62" x2="70" y2="62" stroke="#bbb" />
+      <line x1="52" y1="108" x2="70" y2="108" stroke="#bbb" />
+      <text x="38" y="88" textAnchor="middle">6.5mm</text>
+
+      <line x1="345" y1="62" x2="345" y2="80" stroke="#bbb" />
+      <line x1="337" y1="62" x2="355" y2="62" stroke="#bbb" />
+      <line x1="337" y1="80" x2="355" y2="80" stroke="#bbb" />
+      <text x="375" y="76" textAnchor="middle">2.5mm</text>
+
+      <path
+        d="M80 115 C95 80, 125 65, 165 65 L305 65 C318 65, 328 70, 338 78 L338 82 L235 82 L235 105 L205 105 L205 93 L170 93 C160 93, 160 105, 148 105 L125 105 L125 115 Z"
+        fill="#111"
+      />
+
+      <line x1="80" y1="140" x2="125" y2="140" stroke="#bbb" />
+      <line x1="205" y1="140" x2="235" y2="140" stroke="#bbb" />
+      <line x1="235" y1="140" x2="305" y2="140" stroke="#bbb" />
+
+      <text x="102" y="160" textAnchor="middle">13.5mm</text>
+      <text x="220" y="160" textAnchor="middle">10mm</text>
+      <text x="270" y="160" textAnchor="middle">17.5mm</text>
+    </svg>
+  );
+}
+
+function TMoldingDiagram() {
+  return (
+    <svg viewBox="0 0 420 170" className="mouldingDiagram">
+      <line x1="80" y1="25" x2="330" y2="25" stroke="#bbb" />
+      <line x1="80" y1="18" x2="80" y2="35" stroke="#bbb" />
+      <line x1="330" y1="18" x2="330" y2="35" stroke="#bbb" />
+      <text x="205" y="18" textAnchor="middle">45mm</text>
+
+      <line x1="60" y1="65" x2="60" y2="105" stroke="#bbb" />
+      <line x1="52" y1="65" x2="70" y2="65" stroke="#bbb" />
+      <line x1="52" y1="105" x2="70" y2="105" stroke="#bbb" />
+      <text x="38" y="90" textAnchor="middle">7mm</text>
+
+      <line x1="345" y1="70" x2="345" y2="86" stroke="#bbb" />
+      <line x1="337" y1="70" x2="355" y2="70" stroke="#bbb" />
+      <line x1="337" y1="86" x2="355" y2="86" stroke="#bbb" />
+      <text x="375" y="84" textAnchor="middle">2mm</text>
+
+      <path
+        d="M80 72 L95 68 L315 68 L330 72 L330 84 L245 84 L235 105 L215 105 L210 84 L180 84 L175 105 L155 105 L145 84 L80 84 Z"
+        fill="#111"
+      />
+
+      <line x1="155" y1="140" x2="180" y2="140" stroke="#bbb" />
+      <line x1="215" y1="140" x2="245" y2="140" stroke="#bbb" />
+      <text x="167" y="160" textAnchor="middle">13mm</text>
+      <text x="230" y="160" textAnchor="middle">16mm</text>
+    </svg>
+  );
+}
+
+function ShoebaseDiagram() {
+  return (
+    <svg viewBox="0 0 260 180" className="mouldingDiagram">
+      <line x1="55" y1="35" x2="55" y2="135" stroke="#bbb" />
+      <line x1="47" y1="35" x2="65" y2="35" stroke="#bbb" />
+      <line x1="47" y1="135" x2="65" y2="135" stroke="#bbb" />
+      <text x="30" y="90" textAnchor="middle">12mm</text>
+
+      <line x1="80" y1="145" x2="190" y2="145" stroke="#bbb" />
+      <line x1="80" y1="137" x2="80" y2="153" stroke="#bbb" />
+      <line x1="190" y1="137" x2="190" y2="153" stroke="#bbb" />
+      <text x="135" y="168" textAnchor="middle">15mm</text>
+
+      <line x1="205" y1="116" x2="205" y2="135" stroke="#bbb" />
+      <line x1="197" y1="116" x2="213" y2="116" stroke="#bbb" />
+      <line x1="197" y1="135" x2="213" y2="135" stroke="#bbb" />
+      <text x="230" y="130" textAnchor="middle">2mm</text>
+
+      <path
+        d="M80 35 L80 135 L100 135 L100 128 L190 128 C185 82 135 40 80 35 Z"
+        fill="#111"
+      />
+    </svg>
+  );
+}
+
+function StairNosingDiagram() {
+  return (
+    <svg viewBox="0 0 420 200" className="mouldingDiagram">
+      <line x1="120" y1="25" x2="360" y2="25" stroke="#bbb" />
+      <line x1="120" y1="18" x2="120" y2="35" stroke="#bbb" />
+      <line x1="360" y1="18" x2="360" y2="35" stroke="#bbb" />
+      <text x="240" y="18" textAnchor="middle">110mm</text>
+
+      <line x1="90" y1="50" x2="90" y2="140" stroke="#bbb" />
+      <line x1="82" y1="50" x2="100" y2="50" stroke="#bbb" />
+      <line x1="82" y1="140" x2="100" y2="140" stroke="#bbb" />
+      <text x="65" y="100" textAnchor="middle">35mm</text>
+
+      <line x1="375" y1="50" x2="375" y2="65" stroke="#bbb" />
+      <line x1="367" y1="50" x2="383" y2="50" stroke="#bbb" />
+      <line x1="367" y1="65" x2="383" y2="65" stroke="#bbb" />
+      <text x="400" y="62" textAnchor="middle">7mm</text>
+
+      <line x1="120" y1="165" x2="170" y2="165" stroke="#bbb" />
+      <line x1="170" y1="165" x2="360" y2="165" stroke="#bbb" />
+      <line x1="120" y1="158" x2="120" y2="172" stroke="#bbb" />
+      <line x1="170" y1="158" x2="170" y2="172" stroke="#bbb" />
+      <line x1="360" y1="158" x2="360" y2="172" stroke="#bbb" />
+
+      <text x="145" y="185" textAnchor="middle">16mm</text>
+      <text x="265" y="185" textAnchor="middle">94mm</text>
+
+      <path
+        d="M120 50 L120 140 L160 140 C165 140, 165 130, 170 130 L170 65 L360 65 L360 50 Z"
+        fill="#111"
+      />
+    </svg>
+  );
+}
+
 function ColourDetailPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
+
+  const mouldings = [
+    {
+      name: "Reducer",
+      description: "For transitions between SPC flooring and lower surfaces.",
+      diagram: <ReducerDiagram />,
+    },
+    {
+      name: "T-Molding",
+      description: "For transitions between two flooring areas of similar height.",
+      diagram: <TMoldingDiagram />,
+    },
+    {
+      name: "Shoebase",
+      description: "For finishing the gap between flooring and baseboards.",
+      diagram: <ShoebaseDiagram />,
+    },
+    {
+      name: "Square Stair Nosing",
+      description: "For stair edges and step applications.",
+      diagram: <StairNosingDiagram />,
+    },
+  ];
 
   const allColours = seriesData.flatMap((series) =>
     series.colors.map((color) => ({
@@ -892,6 +1041,31 @@ function ColourDetailPage() {
           >
             ← View More Colours
           </button>
+        </div>
+      </section>
+
+      <section className="mouldingsSection">
+        <div className="sectionHeading">
+          <p className="eyebrow">Matching Accessories</p>
+          <h2>Mouldings</h2>
+        </div>
+
+        <p className="mouldingsIntro">
+          Matching T-molding, reducer, shoebase, and stair nosing are available for{" "}
+          <strong>{color.name}</strong> to complete your installation.
+        </p>
+
+        <div className="mouldingsGrid">
+          {mouldings.map((item) => (
+            <div className="mouldingCard" key={item.name}>
+              <div className="mouldingDiagramWrap">{item.diagram}</div>
+
+              <div className="mouldingText">
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

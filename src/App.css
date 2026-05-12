@@ -2998,3 +2998,184 @@ a {
 .useLocationBtn:hover {
   opacity: 0.7;
 }
+
+.mouldingsSection {
+  max-width: 1180px;
+  margin: 90px auto;
+  padding: 46px;
+  border-radius: 34px;
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(42, 33, 29, 0.07);
+}
+
+.mouldingsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  border-bottom: 1px solid rgba(42, 33, 29, 0.12);
+  padding-bottom: 28px;
+  margin-bottom: 26px;
+}
+
+.mouldingsHeader h2 {
+  font-size: clamp(34px, 5vw, 58px);
+  color: #4a332b;
+}
+
+.mouldingsHeader span {
+  color: #8a6f5a;
+  font-weight: 600;
+}
+
+.mouldingsIntro {
+  max-width: 760px;
+  color: #6f625b;
+  line-height: 1.7;
+  margin-bottom: 34px;
+}
+
+.mouldingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.mouldingItem {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 22px;
+  align-items: center;
+  padding: 24px;
+  border: 1px solid rgba(42, 33, 29, 0.12);
+  border-radius: 24px;
+  background: #faf7f2;
+}
+
+.mouldingVisual {
+  height: 90px;
+  border-radius: 18px;
+  background: #f0e9df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileLine {
+  width: 76px;
+  height: 18px;
+  border-radius: 50px 50px 12px 12px;
+  background: #2a211d;
+}
+
+.mouldingItem h3 {
+  font-size: 21px;
+  margin-bottom: 6px;
+  color: #2a211d;
+}
+
+.mouldingItem span {
+  display: block;
+  font-size: 13px;
+  color: #b08a54;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.mouldingItem p {
+  color: #6f625b;
+  line-height: 1.55;
+}
+
+@media (max-width: 800px) {
+  .mouldingsSection {
+    margin: 60px 20px;
+    padding: 30px;
+  }
+
+  .mouldingsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mouldingsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mouldingItem {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mouldingsSection {
+  max-width: 1180px;
+  margin: 90px auto;
+  padding: 0 24px;
+}
+
+.mouldingsIntro {
+  max-width: 760px;
+  margin: 18px 0 36px;
+  color: #6f625b;
+  line-height: 1.7;
+  font-size: 17px;
+}
+
+.mouldingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.mouldingCard {
+  background: #fff;
+  border: 1px solid rgba(42, 33, 29, 0.12);
+  border-radius: 28px;
+  padding: 30px;
+  box-shadow: 0 16px 40px rgba(42, 33, 29, 0.06);
+}
+
+.mouldingDiagramWrap {
+  background: #faf8f4;
+  border-radius: 22px;
+  padding: 24px;
+  margin-bottom: 22px;
+}
+
+.mouldingDiagram {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mouldingDiagram line {
+  stroke: #cfcfcf;
+  stroke-width: 1.4;
+}
+
+.mouldingDiagram text {
+  fill: #e05a5a;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mouldingText h3 {
+  font-size: 22px;
+  color: #2a211d;
+  margin-bottom: 10px;
+}
+
+.mouldingText p {
+  color: #6f625b;
+  line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+  .mouldingsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mouldingCard {
+    padding: 22px;
+  }
+}

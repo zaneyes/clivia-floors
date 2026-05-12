@@ -203,7 +203,7 @@ const dealers = [
         lng: -122.84281488798943,
     },
     {
-        name: "Jawala Carpet and Flooring",
+        name: "Jawala Carpet and Floori  ng",
         address: "31018 Peardonville Rd unit 1, Abbotsford, BC V2T 6K2",
         city: "Abbotsford",
         postalCode: "V2T 6K2",
@@ -225,12 +225,22 @@ const dealers = [
     {
         name: "Northview Flooring Langley",
         address: "20167 Industrial Ave, Langley, BC V3A 4K6",
-        city: "V3A 4K6",
+        city: "Langley",
         postalCode: "V3A 4K6",
         phone: "604-791-6883",
         website: "http://www.northviewflooring.ca/",
         lat: 49.10894197740675,
         lng: -122.66316312124019,
+    },
+    {
+        name: "Silkway Flooring",
+        address: "13285 72 Ave Unit#13, Surrey, BC V3W 2N5",
+        city: "Surrey",
+        postalCode: "V3W 2N5",
+        phone: "604-791-6883",
+        website: "https://www.silkwayflooring.com/",
+        lat: 49.13401944651328, 
+        lng: -122.8540902740054,
     },
 ];
 
