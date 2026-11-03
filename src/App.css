@@ -4364,3 +4364,36 @@ a {
 
 }
 
+/* Mobile Collections - Minimal Luxury */
+@media (max-width: 768px) {
+
+  .luxuryCollections {
+    padding: 55px 24px 45px;
+  }
+
+  .luxuryCollections .sectionLabel {
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .luxuryCollections h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+    font-weight: 400;
+    max-width: 360px;
+    margin: 0 auto 16px;
+  }
+
+  .luxuryCollections .sectionSub {
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 330px;
+    margin: 0 auto 32px;
+    color: #777;
+  }
+
+}
