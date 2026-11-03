@@ -4338,3 +4338,29 @@ a {
     padding: 0 18px;
   }
 }
+
+/* Mobile Home Slider */
+@media (max-width: 768px) {
+
+  .homeSlider {
+    width: calc(100% - 32px) !important;
+    max-width: none;
+    margin: 10px auto 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .sliderViewport {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .sliderImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+}
+

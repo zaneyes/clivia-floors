@@ -89,7 +89,7 @@ const seriesData = [
     size: '7.21\" x 48\"',
     thickness: "7mm",
     wear: "20mil",
-    description: "Dealer-friendly balanced flooring collection.",
+    description: "Timeless Style. Everyday Comfort.",
     specs: {
       sqft: "19.23 sq.ft / carton",
       weight: "43 lbs / carton",
