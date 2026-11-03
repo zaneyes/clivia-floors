@@ -1,0 +1,1840 @@
+import "./App.css";
+import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
+import SpcLandingPage from "./SpcLandingPage";
+import VinylWholesalePage from "./VinylWholesalePage";
+import FlooringSupplierBCPage from "./FlooringSupplierBCPage";
+import FindDealerPage from "./FindDealerPage";
+import Blog from "./Blog";
+
+const BASE = import.meta.env.BASE_URL;
+const seriesData = [
+  {
+    id: "cl3",
+    name: "Essential (6.5mm)",
+    size: '7.21" x 48"',
+    thickness: "6.5mm",
+    wear: "20mil",
+    description: "Reliable SPC flooring with popular colours.",
+    specs: {
+      sqft: "19.22 sq.ft / carton",
+      weight: "42 lbs / carton",
+      planks: "8 planks / carton",
+      pallet: "55 cartons / pallet"
+    },
+
+    features: [
+      "100% Waterproof",
+      "Scratch Resistant Wear Layer",
+      "Four-sided painted bevels",
+      "Click Lock Installation",
+      "Low Maintenance",
+      "Suitable for Residential & Light Commercial"
+    ],
+    colors: [
+      { name: "CL321 - Bridal Veil Falls", image: `${BASE}images/CL321.jpg` },
+      { name: "CL322 - Cascade Creeks", image: `${BASE}images/CL322.jpg` },
+      { name: "CL323 - Cheam Lake", image: `${BASE}images/CL323.jpg` },
+      { name: "CL324 - Boston Bar", image: `${BASE}images/CL324.jpg` },
+      { name: "CL325 - Osoyoos", image: `${BASE}images/CL325.jpg` },
+      { name: "CL326 - Mistaya", image: `${BASE}images/CL326.jpg` },
+      { name: "CL327 - Eagle Plains", image: `${BASE}images/CL327.jpg` },
+      { name: "CL328 - Sunshine Coast", image: `${BASE}images/CL328.jpg` },
+      { name: "CL329 - Rose Valley", image: `${BASE}images/CL329.jpg` },
+      { name: "CL330 - Skaha", image: `${BASE}images/CL330.jpg` },
+      { name: "CL331 - Twin Creeks", image: `${BASE}images/CL331.png` },
+    ],
+  },
+
+  {
+    id: "wide",
+    name: "Wide Plank (7mm)",
+    size: '9" x 48"',
+    thickness: "7mm",
+    wear: "20mil",
+    description: "Wide plank modern flooring designs.",
+    specs: {
+      sqft: "24.17 sq.ft / carton",
+      weight: "50 lbs / carton",
+      planks: "8 planks / carton",
+      pallet: "48 cartons / pallet"
+    },
+
+    features: [
+      "100% Waterproof",
+      "Scratch Resistant Wear Layer",
+      "Four-sided painted bevels",
+      "Enhanced Underlayment",
+      "Click Lock Installation",
+      "Low Maintenance",
+      "Suitable for Residential & Light Commercial"
+    ],
+    colors: [
+      { name: "CL1701 - Dartford", image: `${BASE}images/CL1701.PNG` },
+      { name: "CL1702 - Sevenoaks", image: `${BASE}images/CL1702.PNG` },
+      { name: "CL1703 - Chatham", image: `${BASE}images/CL1703.PNG` },
+      { name: "CL1704 - Emberton", image: `${BASE}images/CL1704.PNG` },
+      { name: "CL1705 - Forest Gate", image: `${BASE}images/CL1705.PNG` },
+      { name: "CL1706 - Beacon", image: `${BASE}images/CL1706.PNG` },
+      { name: "CL1707 - Moraine Drift", image: `${BASE}images/CL1707.PNG` },
+      { name: "CL1708 - Peyto Glaze", image: `${BASE}images/CL1708.PNG` },
+      { name: "CL1709 - O'Hara Alpine", image: `${BASE}images/CL1709.PNG` },
+      { name: "CL1710 - Morning Mist", image: `${BASE}images/CL1710.PNG` },
+    ],
+  },
+
+  {
+    id: "standard",
+    name: "Classic (7mm)",
+    size: '7.21\" x 48\"',
+    thickness: "7mm",
+    wear: "20mil",
+    description: "Dealer-friendly balanced flooring collection.",
+    specs: {
+      sqft: "19.23 sq.ft / carton",
+      weight: "43 lbs / carton",
+      planks: "8 planks / carton",
+      pallet: "55 cartons / pallet"
+    },
+
+    features: [
+      "100% Waterproof",
+      "Scratch Resistant Wear Layer",
+      "Micro bevels",
+      "Enhanced Underlayment",
+      "Click Lock Installation",
+      "Low Maintenance",
+      "Suitable for Residential & Light Commercial"
+    ],
+    colors: [
+      { name: "CL1731 - Brockton Totem", image: `${BASE}images/CL1731.PNG` },
+      { name: "CL1732 - Monterrey Sierra", image: `${BASE}images/CL1732.png` },
+      { name: "CL1733 - Kansas Heartland", image: `${BASE}images/CL1733.PNG` },
+      { name: "CL1734 - Atlanta Pitch", image: `${BASE}images/CL1734.png` },
+      { name: "CL1735 - Miami Beach", image: `${BASE}images/CL1735.png` },
+      { name: "CL1736 - L.A. Studio", image: `${BASE}images/CL1736.PNG` },
+    ],
+  },
+
+  {
+    id: "premium",
+    name: "Premium (8mm)",
+    size: '9.1" x 48"',
+    thickness: "8mm",
+    wear: "20mil",
+    description: "Premium SPC flooring with elevated construction.",
+    specs: {
+      sqft: "18.122 sq.ft / carton",
+      weight: "50 lbs / carton",
+      planks: "6 planks / carton",
+      pallet: "48 cartons / pallet"
+    },
+
+    features: [
+      "100% Waterproof",
+      "Enhanced Core",
+      "Wide Planks",
+      "Scratch Resistant Wear Layer",
+      "Four-sided painted bevels",
+      "Enhanced Underlayment",
+      "Click Lock Installation",
+      "Low Maintenance",
+      "Suitable for Residential & Light Commercial"
+    ],
+    colors: [
+      { name: "CL1821 - Glacier", image: `${BASE}images/CL1821.jpg` },
+      { name: "CL1822 - Celtic", image: `${BASE}images/CL1822.jpg` },
+      { name: "CL1823 - Hyland", image: `${BASE}images/CL1823.jpg` },
+      { name: "CL1824 - Aurora", image: `${BASE}images/CL1824.jpg` },
+      { name: "CL1825 - Mara", image: `${BASE}images/CL1825.jpg` },
+      { name: "CL1826 - Teslin", image: `${BASE}images/CL1826.jpg` },
+    ],
+  },
+];
+
+function createSlug(name) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Site />
+    </BrowserRouter>
+  );
+}
+
+function ScrollToTop() {
+  const { pathname, state } = useLocation();
+
+  useEffect(() => {
+    if (pathname.startsWith("/colour/") && state?.fromSwipe) {
+      return;
+    }
+
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo(0, 0);
+
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = "smooth";
+    }, 100);
+  }, [pathname, state]);
+
+  return null;
+}
+
+function Site() {
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  return (
+    <div className="site">
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cl3" element={<SeriesPage seriesId="cl3" setSelectedColor={setSelectedColor} />} />
+        <Route path="/wide-plank" element={<SeriesPage seriesId="wide" setSelectedColor={setSelectedColor} />} />
+        <Route path="/standard" element={<SeriesPage seriesId="standard" setSelectedColor={setSelectedColor} />} />
+        <Route path="/premium" element={<SeriesPage seriesId="premium" setSelectedColor={setSelectedColor} />} />
+        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/visualizer" element={<VisualizerPage />} />
+        <Route path="/find-a-dealer" element={<FindDealerPage />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/flooring-supplier-bc" element={<FlooringSupplierBCPage />} />
+        <Route path="/colour/:slug" element={<ColourDetailPage />} />
+        <Route path="/spc-flooring-canada" element={<SpcLandingPage />} />
+        <Route path="/vinyl-flooring-wholesale" element={<VinylWholesalePage />} />
+        <Route path="/wholesale-flooring-bc" element={<SeoWholesaleBC />} />
+      </Routes>
+
+      {selectedColor && (
+        <div className="modal" onClick={() => setSelectedColor(null)}>
+          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+            <button className="closeBtn" onClick={() => setSelectedColor(null)}>
+              ×
+            </button>
+
+            <img src={selectedColor.image} alt={selectedColor.name} />
+            <h2>{selectedColor.name}</h2>
+          </div>
+        </div>
+      )}
+
+      <Footer />
+    </div>
+  );
+}
+
+function Header() {
+  const navigate = useNavigate();
+
+  const goCollections = () => {
+    navigate("/");
+    setTimeout(() => {
+      document.getElementById("collections")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 120);
+  };
+  const goHome = () => {
+    if (window.location.pathname === "/") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } else {
+      navigate("/");
+    }
+  };
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
+  const allColours = useMemo(() => {
+    return seriesData.flatMap((series) =>
+      series.colors.map((color) => ({
+        ...color,
+        seriesName: series.name,
+        slug: createSlug(color.name),
+      }))
+    );
+  }, []);
+
+  const searchResults = allColours.filter((color) =>
+    color.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [menuClosing, setMenuClosing] = useState(false);
+
+  const openMenu = () => {
+    setMenuClosing(false);
+    setMenuOpen(true);
+  };
+
+  const closeMenu = () => {
+    setMenuClosing(true);
+
+    setTimeout(() => {
+      setMenuOpen(false);
+      setMenuClosing(false);
+      setProductsOpen(false);
+    }, 280);
+  };
+
+  return (
+    <>
+      <header className="header">
+        <div className="headerInner">
+          <Link className="logo" to="/">
+            <img src={`${BASE}images/logo.jpg`} />
+          </Link>
+
+          <nav>
+
+            <Link to="/" onClick={goHome}>Home</Link>
+
+            <div className="navDropdown">
+              <button className="dropdownTrigger" onClick={goCollections}>
+                Series ▾
+              </button>
+
+              <div className="dropdownMenu">
+                <Link to="/cl3">Clivia Essential (6.5mm)</Link>
+                <Link to="/wide-plank">Clivia Wide Plank (7mm)</Link>
+                <Link to="/standard">Clivia Classic (7mm)</Link>
+                <Link to="/premium">Clivia Premium (8mm)</Link>
+              </div>
+            </div>
+
+            <Link to="/resources">Resources</Link>
+            <Link to="/visualizer">Visualizer</Link>
+            <Link to="/find-a-dealer" onClick={closeMenu}>Find a Dealer</Link>
+            {/* <Link to="/blog">Blog</Link> */}
+            <Link to="/contact">Contact</Link>
+          </nav>
+          <button
+            className="searchIconBtn"
+            onClick={() => setSearchOpen(true)}
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+
+          {searchOpen && (
+            <div className="searchOverlay">
+              <div className="searchBox">
+                <button
+                  className="searchClose"
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setSearchText("");
+                  }}
+                >
+                  ×
+                </button>
+
+                <h2>Search Colours</h2>
+
+                <input
+                  autoFocus
+                  type="text"
+                  placeholder="Search by colour name or code, e.g. CL1705"
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                />
+
+                <div className="searchResults">
+                  {searchText && searchResults.length === 0 && (
+                    <p className="noResult">No matching colours found.</p>
+                  )}
+
+                  {searchText &&
+                    searchResults.map((color) => (
+                      <Link
+                        key={color.name}
+                        to={`/colour/${color.slug}`}
+                        className="searchResultItem"
+                        onClick={() => {
+                          setSearchOpen(false);
+                          setSearchText("");
+                        }}
+                      >
+                        <img src={color.image} alt={color.name} />
+
+                        <div>
+                          <strong>{color.name}</strong>
+                          <span>{color.seriesName}</span>
+                        </div>
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* <Link className="quoteBtn" to="/contact">
+        Dealer Inquiry
+      </Link> */}
+          <button
+            className="menuBtn"
+            onClick={openMenu}
+          >
+            ☰
+          </button>
+        </div>
+      </header>
+
+      {menuOpen && (
+        <div className={`drawerMenuOverlay ${menuClosing ? "closing" : ""}`}
+          onClick={closeMenu}>
+          <div
+            className={`drawerMenu ${menuClosing ? "closing" : ""}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="drawerMenuTop">
+              <span>Menu</span>
+              <button onClick={closeMenu}>×</button>
+            </div>
+
+            <Link
+              to="/"
+              onClick={(e) => {
+                if (window.location.pathname === "/") {
+                  e.preventDefault();
+                  closeMenu();
+
+                  setTimeout(() => {
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
+                  }, 300);
+                } else {
+                  closeMenu();
+                }
+              }}
+            >
+              Home
+            </Link>
+            <button
+              className="drawerDropdownTrigger"
+              onClick={() => setProductsOpen(!productsOpen)}
+            >
+              <span>Products</span>
+              <span>{productsOpen ? "⌃" : "⌄"}</span>
+            </button>
+
+            {/* {productsOpen && (
+              <div className="drawerSubMenu">
+                <Link to="/cl3" onClick={() => setMenuOpen(false)}>
+                  Essential (6.5mm)
+                </Link>
+                <Link to="/wide-plank" onClick={() => setMenuOpen(false)}>
+                  Wide Plank Flooring (7mm)
+                </Link>
+                <Link to="/standard" onClick={() => setMenuOpen(false)}>
+                  Classic Flooring (7mm)
+                </Link>
+                <Link to="/premium" onClick={() => setMenuOpen(false)}>
+                  Premium Flooring (8mm)
+                </Link>
+              </div>
+            )} */}
+
+            <div className={`drawerSubMenu ${productsOpen ? "open" : ""}`}>
+              <Link to="/cl3" onClick={closeMenu}>Essential 6.5mm</Link>
+              <Link to="/wide-plank" onClick={closeMenu}>Wide Plank 7mm</Link>
+              <Link to="/standard" onClick={closeMenu}>Classic 7mm</Link>
+              <Link to="/premium" onClick={closeMenu}>Premium 8mm</Link>
+            </div>
+
+
+            <Link to="/resources" onClick={closeMenu}>Resources</Link>
+            <Link to="/visualizer" onClick={closeMenu}>Room Visualizer</Link>
+            <Link to="/contact" onClick={closeMenu}>Contact</Link>
+            <Link to="/contact" onClick={closeMenu}>Order Samples</Link>
+            <Link to="/find-a-dealer" onClick={closeMenu}>Find a Dealer</Link>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+function Home() {
+  const navigate = useNavigate();
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const heroSlides = [
+    { src: `${BASE}images/slider/chatham.jpeg`, alt: "Chatham 7mm waterproof vinyl flooring with pet-friendly living room" },
+    { src: `${BASE}images/slider/mara.jpeg`, alt: "Mara 8mm waterproof vinyl flooring rain campaign" },
+    { src: `${BASE}images/slider/sevenoaks.jpeg`, alt: "Sevenoaks 7mm waterproof vinyl flooring in a fine dining setting" },
+    { src: `${BASE}images/slider/dartford.jpeg`, alt: "Dartford 7mm waterproof vinyl flooring art-inspired interior" },
+  ];
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % heroSlides.length);
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, [heroSlides.length]);
+
+  const changeSlide = (direction) => {
+    setActiveSlide((current) =>
+      (current + direction + heroSlides.length) % heroSlides.length
+    );
+  };
+
+  return (
+    <>
+      <section className="homeSlider" aria-label="Featured Clivia flooring">
+        <div className="sliderViewport">
+          {heroSlides.map((slide, index) => (
+            <img
+              key={slide.src}
+              className={`sliderImage ${index === activeSlide ? "active" : ""}`}
+              src={slide.src}
+              alt={slide.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          ))}
+
+          <button
+            className="sliderArrow sliderArrowLeft"
+            type="button"
+            aria-label="Previous slide"
+            onClick={() => changeSlide(-1)}
+          >
+            ‹
+          </button>
+          <button
+            className="sliderArrow sliderArrowRight"
+            type="button"
+            aria-label="Next slide"
+            onClick={() => changeSlide(1)}
+          >
+            ›
+          </button>
+
+          <div className="sliderDots" aria-label="Choose slide">
+            {heroSlides.map((slide, index) => (
+              <button
+                key={slide.src}
+                type="button"
+                className={`sliderDot ${index === activeSlide ? "active" : ""}`}
+                aria-label={`Go to slide ${index + 1}`}
+                aria-current={index === activeSlide ? "true" : undefined}
+                onClick={() => setActiveSlide(index)}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="collections" className="luxuryCollections">
+        <p className="sectionLabel">Our Collections</p>
+        <h2>Find the Perfect Floor for Your Space</h2>
+        <p className="sectionSub">
+          Explore our premium SPC flooring series, designed for style, strength,
+          and everyday living.
+        </p>
+
+        <div className="luxuryGrid">
+          {seriesData.map((item) => (
+            <div
+              className="luxuryCard"
+              key={item.id}
+              onClick={() => {
+                const routeMap = {
+                  cl3: "/cl3",
+                  wide: "/wide-plank",
+                  standard: "/standard",
+                  premium: "/premium",
+                };
+
+                navigate(routeMap[item.id]);
+              }}
+            >
+              <div
+                className="luxuryCardImage"
+                style={{
+                  backgroundImage: `url(${item.colors?.[0]?.image || "/images/CL321.jpg"})`,
+                }}
+              ></div>
+
+              <div className="luxuryCardText">
+                <h3>{item.name}</h3>
+                <p>
+                  {item.thickness} · {item.size}
+                </p>
+                <span>Explore Collection →</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+function SeriesPage({ seriesId, setSelectedColor }) {
+  const selectedSeries = seriesData.find((item) => item.id === seriesId);
+  const navigate = useNavigate();
+
+  if (!selectedSeries) return null;
+
+  return (
+    <section className="detailPage">
+      <button
+        className="back"
+        onClick={() => {
+          navigate("/");
+          setTimeout(() => {
+            document.getElementById("collections")?.scrollIntoView({
+              behavior: "smooth",
+            });
+          }, 120);
+        }}
+      >
+        ← Back to Series
+      </button>
+
+      <div className={`detailHero detailHero-${selectedSeries.id}`}>
+        <h1>{selectedSeries.name}</h1>
+        <p>{selectedSeries.description}</p>
+      </div>
+
+      <div className="detailSpecs">
+        <div>
+          <span>Size</span>
+          <strong>{selectedSeries.size}</strong>
+        </div>
+
+        <div>
+          <span>Thickness</span>
+          <strong>{selectedSeries.thickness}</strong>
+        </div>
+
+        <div>
+          <span>Wear Layer</span>
+          <strong>{selectedSeries.wear}</strong>
+        </div>
+      </div>
+
+      <h2>Available Colours</h2>
+
+      <div className="colorGrid">
+        {selectedSeries.colors.map((color) => (
+          <Link
+            key={color.name}
+            to={`/colour/${createSlug(color.name)}`}
+            state={{ color }}
+            className="colorTile"
+          >
+            <img src={color.image} alt={color.name} />
+
+            <div className="colorInfo">
+              <h3>{color.name}</h3>
+              <span className="detailsBtn">Details</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+    </section>
+  );
+}
+
+function ReducerDiagram() {
+  return (
+    <svg viewBox="0 0 420 170" className="mouldingDiagram">
+      <line x1="80" y1="25" x2="330" y2="25" stroke="#bbb" />
+      <line x1="80" y1="18" x2="80" y2="35" stroke="#bbb" />
+      <line x1="330" y1="18" x2="330" y2="35" stroke="#bbb" />
+      <text x="205" y="18" textAnchor="middle">45mm</text>
+
+      <line x1="60" y1="62" x2="60" y2="108" stroke="#bbb" />
+      <line x1="52" y1="62" x2="70" y2="62" stroke="#bbb" />
+      <line x1="52" y1="108" x2="70" y2="108" stroke="#bbb" />
+      <text x="38" y="88" textAnchor="middle">6.5mm</text>
+
+      <line x1="345" y1="62" x2="345" y2="80" stroke="#bbb" />
+      <line x1="337" y1="62" x2="355" y2="62" stroke="#bbb" />
+      <line x1="337" y1="80" x2="355" y2="80" stroke="#bbb" />
+      <text x="375" y="76" textAnchor="middle">2.5mm</text>
+
+      <path
+        d="M80 115 C95 80, 125 65, 165 65 L305 65 C318 65, 328 70, 338 78 L338 82 L235 82 L235 105 L205 105 L205 93 L170 93 C160 93, 160 105, 148 105 L125 105 L125 115 Z"
+        fill="#111"
+      />
+
+      <line x1="80" y1="140" x2="125" y2="140" stroke="#bbb" />
+      <line x1="205" y1="140" x2="235" y2="140" stroke="#bbb" />
+      <line x1="235" y1="140" x2="305" y2="140" stroke="#bbb" />
+
+      <text x="102" y="160" textAnchor="middle">13.5mm</text>
+      <text x="220" y="160" textAnchor="middle">10mm</text>
+      <text x="270" y="160" textAnchor="middle">17.5mm</text>
+    </svg>
+  );
+}
+
+function TMoldingDiagram() {
+  return (
+    <svg viewBox="0 0 420 170" className="mouldingDiagram">
+      <line x1="80" y1="25" x2="330" y2="25" stroke="#bbb" />
+      <line x1="80" y1="18" x2="80" y2="35" stroke="#bbb" />
+      <line x1="330" y1="18" x2="330" y2="35" stroke="#bbb" />
+      <text x="205" y="18" textAnchor="middle">45mm</text>
+
+      <line x1="60" y1="65" x2="60" y2="105" stroke="#bbb" />
+      <line x1="52" y1="65" x2="70" y2="65" stroke="#bbb" />
+      <line x1="52" y1="105" x2="70" y2="105" stroke="#bbb" />
+      <text x="38" y="90" textAnchor="middle">7mm</text>
+
+      <line x1="345" y1="70" x2="345" y2="86" stroke="#bbb" />
+      <line x1="337" y1="70" x2="355" y2="70" stroke="#bbb" />
+      <line x1="337" y1="86" x2="355" y2="86" stroke="#bbb" />
+      <text x="375" y="84" textAnchor="middle">2mm</text>
+
+      <path
+        d="M80 72 L95 68 L315 68 L330 72 L330 84 L245 84 L235 105 L215 105 L210 84 L180 84 L175 105 L155 105 L145 84 L80 84 Z"
+        fill="#111"
+      />
+
+      <line x1="155" y1="140" x2="180" y2="140" stroke="#bbb" />
+      <line x1="215" y1="140" x2="245" y2="140" stroke="#bbb" />
+      <text x="167" y="160" textAnchor="middle">13mm</text>
+      <text x="230" y="160" textAnchor="middle">16mm</text>
+    </svg>
+  );
+}
+
+function ShoebaseDiagram() {
+  return (
+    <svg viewBox="0 0 260 180" className="mouldingDiagram">
+      <line x1="55" y1="35" x2="55" y2="135" stroke="#bbb" />
+      <line x1="47" y1="35" x2="65" y2="35" stroke="#bbb" />
+      <line x1="47" y1="135" x2="65" y2="135" stroke="#bbb" />
+      <text x="30" y="90" textAnchor="middle">12mm</text>
+
+      <line x1="80" y1="145" x2="190" y2="145" stroke="#bbb" />
+      <line x1="80" y1="137" x2="80" y2="153" stroke="#bbb" />
+      <line x1="190" y1="137" x2="190" y2="153" stroke="#bbb" />
+      <text x="135" y="168" textAnchor="middle">15mm</text>
+
+      <line x1="205" y1="116" x2="205" y2="135" stroke="#bbb" />
+      <line x1="197" y1="116" x2="213" y2="116" stroke="#bbb" />
+      <line x1="197" y1="135" x2="213" y2="135" stroke="#bbb" />
+      <text x="230" y="130" textAnchor="middle">2mm</text>
+
+      <path
+        d="M80 35 L80 135 L100 135 L100 128 L190 128 C185 82 135 40 80 35 Z"
+        fill="#111"
+      />
+    </svg>
+  );
+}
+
+function StairNosingDiagram() {
+  return (
+    <svg viewBox="0 0 420 200" className="mouldingDiagram">
+      <line x1="120" y1="25" x2="360" y2="25" stroke="#bbb" />
+      <line x1="120" y1="18" x2="120" y2="35" stroke="#bbb" />
+      <line x1="360" y1="18" x2="360" y2="35" stroke="#bbb" />
+      <text x="240" y="18" textAnchor="middle">110mm</text>
+
+      <line x1="90" y1="50" x2="90" y2="140" stroke="#bbb" />
+      <line x1="82" y1="50" x2="100" y2="50" stroke="#bbb" />
+      <line x1="82" y1="140" x2="100" y2="140" stroke="#bbb" />
+      <text x="65" y="100" textAnchor="middle">35mm</text>
+
+      <line x1="375" y1="50" x2="375" y2="65" stroke="#bbb" />
+      <line x1="367" y1="50" x2="383" y2="50" stroke="#bbb" />
+      <line x1="367" y1="65" x2="383" y2="65" stroke="#bbb" />
+      <text x="400" y="62" textAnchor="middle">7mm</text>
+
+      <line x1="120" y1="165" x2="170" y2="165" stroke="#bbb" />
+      <line x1="170" y1="165" x2="360" y2="165" stroke="#bbb" />
+      <line x1="120" y1="158" x2="120" y2="172" stroke="#bbb" />
+      <line x1="170" y1="158" x2="170" y2="172" stroke="#bbb" />
+      <line x1="360" y1="158" x2="360" y2="172" stroke="#bbb" />
+
+      <text x="145" y="185" textAnchor="middle">16mm</text>
+      <text x="265" y="185" textAnchor="middle">94mm</text>
+
+      <path
+        d="M120 50 L120 140 L160 140 C165 140, 165 130, 170 130 L170 65 L360 65 L360 50 Z"
+        fill="#111"
+      />
+    </svg>
+  );
+}
+
+function ColourDetailPage() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+
+  const mouldings = [
+    {
+      name: "Reducer",
+      description: "For transitions between SPC flooring and lower surfaces.",
+      diagram: <ReducerDiagram />,
+    },
+    {
+      name: "T-Molding",
+      description: "For transitions between two flooring areas of similar height.",
+      diagram: <TMoldingDiagram />,
+    },
+    {
+      name: "Shoebase",
+      description: "For finishing the gap between flooring and baseboards.",
+      diagram: <ShoebaseDiagram />,
+    },
+    {
+      name: "Square Stair Nosing",
+      description: "For stair edges and step applications.",
+      diagram: <StairNosingDiagram />,
+    },
+  ];
+
+  const allColours = seriesData.flatMap((series) =>
+    series.colors.map((color) => ({
+      ...color,
+      seriesName: series.name,
+      size: series.size,
+      thickness: series.thickness,
+      wear: series.wear,
+      description: series.description,
+      specs: series.specs,
+      features: series.features,
+    }))
+  );
+
+  const color = allColours.find((item) => createSlug(item.name) === slug);
+
+  const currentIndex = allColours.findIndex(
+    (item) => createSlug(item.name) === slug
+  );
+
+  const prevColor =
+    allColours[(currentIndex - 1 + allColours.length) % allColours.length];
+
+  const nextColor =
+    allColours[(currentIndex + 1) % allColours.length];
+
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(null);
+    setDragX(0);
+  };
+
+  const handleTouchMove = (e) => {
+    const currentX = e.targetTouches[0].clientX;
+    setTouchEnd(currentX);
+
+    if (touchStart) {
+      setDragX(currentX - touchStart);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) {
+      setDragX(0);
+      return;
+    }
+
+    const distance = touchStart - touchEnd;
+
+    if (distance > 70) {
+      setSwipeDirection("slideLeft");
+
+      setTimeout(() => {
+        navigate(`/colour/${createSlug(nextColor.name)}`, {
+          state: { fromSwipe: true },
+        });
+        setSwipeDirection("");
+        setDragX(0);
+      }, 180);
+    } else if (distance < -70) {
+      setSwipeDirection("slideRight");
+
+      setTimeout(() => {
+        navigate(`/colour/${createSlug(prevColor.name)}`, {
+          state: { fromSwipe: true },
+        });
+        setSwipeDirection("");
+        setDragX(0);
+      }, 180);
+    } else {
+      setDragX(0);
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
+  const [swipeDirection, setSwipeDirection] = useState("");
+
+  const [imageOpen, setImageOpen] = useState(false);
+
+  const goPrevImage = () => {
+    navigate(`/colour/${createSlug(prevColor.name)}`, {
+      state: { fromSwipe: true },
+    });
+  };
+
+  const goNextImage = () => {
+    navigate(`/colour/${createSlug(nextColor.name)}`, {
+      state: { fromSwipe: true },
+    });
+  };
+
+  const [dragX, setDragX] = useState(0);
+
+  if (!color) {
+    return (
+      <section className="detailPage">
+        <h1>Colour Not Found</h1>
+        <Link to="/">Back Home</Link>
+      </section>
+    );
+  }
+
+  return (
+    <section className="colourDetailPage">
+      <div className="productTopBack">
+        <button
+          className="backBtnTop"
+          onClick={() => {
+            if (window.history.length > 1) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
+        >
+          ← Back to Colours
+        </button>
+      </div>
+      <div className="topBackBar">
+        <button
+          className="floatingBackBtn"
+          onClick={() => {
+            if (window.history.length > 1) {
+              navigate(-1);
+            } else {
+              navigate("/");
+            }
+          }}
+        >
+          ←
+        </button>
+      </div>
+
+      <div className="colourDetailHero luxuryDetailHero">
+        <div>
+          <p className="eyebrow">{color.seriesName}</p>
+          <h1>{color.name}</h1>
+          <p>
+            A premium SPC flooring colour designed for modern homes, retail
+            showrooms, builders, and project applications.
+          </p>
+
+          <Link className="quoteBtn" to="/find-a-dealer">
+            Find A Dealer
+          </Link>
+        </div>
+
+        <div
+          className={`colourImageBox swipeImageBox ${swipeDirection}`}
+          style={{ transform: dragX ? `translateX(${dragX}px)` : undefined }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <img
+            src={color.image}
+            alt={`${color.name} SPC flooring`}
+            onClick={() => setImageOpen(true)}
+            className="clickableProductImage"
+          />
+          <div className="swipeHint">Swipe left or right</div>
+          <div className="colourInlineSwitch">
+            <Link to={`/colour/${createSlug(prevColor.name)}`}>
+              ← <span className="fullName">{prevColor.name}</span>
+              <span className="shortName">{prevColor.name.split(" - ")[1]}</span>
+            </Link>
+
+            <Link to={`/colour/${createSlug(nextColor.name)}`}>
+              <span className="fullName">{nextColor.name}</span>
+              <span className="shortName">{nextColor.name.split(" - ")[1]}</span> →
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="quickSpecs">
+        <div>
+          <span>Series</span>
+          <strong>{color.seriesName}</strong>
+        </div>
+        <div>
+          <span>Size</span>
+          <strong>{color.size}</strong>
+        </div>
+        <div>
+          <span>Thickness</span>
+          <strong>{color.thickness}</strong>
+        </div>
+        <div>
+          <span>Wear Layer</span>
+          <strong>{color.wear}</strong>
+        </div>
+      </div>
+
+      <section className="productStory">
+        <p className="eyebrow">Product Overview</p>
+        <h2>Built for everyday performance and showroom appeal.</h2>
+        <p>
+          {color.name} is part of the {color.seriesName} collection, offering durable,
+          waterproof SPC flooring with a realistic wood look for residential and light
+          commercial spaces.
+        </p>
+      </section>
+
+      <section className="technicalSection">
+        <div className="sectionHeading">
+          <p className="eyebrow">Technical Specifications</p>
+          <h2>Specifications</h2>
+        </div>
+
+        <div className="technicalGrid">
+          <div>
+            <span>Coverage</span>
+            <strong>{color.specs?.sqft}</strong>
+          </div>
+
+          <div>
+            <span>Weight</span>
+            <strong>{color.specs?.weight}</strong>
+          </div>
+
+          <div>
+            <span>Planks per Carton</span>
+            <strong>{color.specs?.planks}</strong>
+          </div>
+
+          <div>
+            <span>Cartons per Pallet</span>
+            <strong>{color.specs?.pallet}</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="featuresSection">
+        <div className="sectionHeading">
+          <p className="eyebrow">Why Dealers Choose It</p>
+          <h2>Features</h2>
+        </div>
+
+        <div className="featurePills">
+          {color.features?.map((item, i) => (
+            <span key={i}>{item}</span>
+          ))}
+        </div>
+        <div className="detailBackArea">
+          <button
+            className="backBtn"
+            onClick={() => {
+              if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate("/");
+              }
+            }}
+          >
+            ← View More Colours
+          </button>
+        </div>
+      </section>
+
+      <section className="mouldingsSection">
+        <div className="sectionHeading">
+          <p className="eyebrow">Matching Accessories</p>
+          <h2>Mouldings</h2>
+        </div>
+
+        <p className="mouldingsIntro">
+          Matching T-molding, reducer, shoebase, and stair nosing are available for{" "}
+          <strong>{color.name}</strong> to complete your installation.
+        </p>
+
+        <div className="mouldingsGrid">
+          {mouldings.map((item) => (
+            <div className="mouldingCard" key={item.name}>
+              <div className="mouldingDiagramWrap">{item.diagram}</div>
+
+              <div className="mouldingText">
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="detailCTA">
+        <div>
+          <h2>Need samples or dealer pricing?</h2>
+          <p>
+            Contact Clivia Floors for availability, pricing, display samples, and
+            project support.
+          </p>
+        </div>
+
+        <Link to="/contact">Contact Us</Link>
+      </section>
+      {imageOpen && (
+        <div
+          className="modal productImageModal"
+          onClick={() => setImageOpen(false)}
+        >
+          <div
+            className="modalContent productImageModalContent"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="closeBtn" onClick={() => setImageOpen(false)}>
+              ×
+            </button>
+
+            <button
+              className="modalArrow modalArrowLeft"
+              onClick={(e) => {
+                e.stopPropagation();
+                goPrevImage();
+              }}
+            >
+              ‹
+            </button>
+
+            <div
+              className={`modalSwipeImageBox ${swipeDirection}`}
+              style={{ transform: dragX ? `translateX(${dragX}px)` : undefined }}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <img src={color.image} alt={color.name} />
+            </div>
+
+            <button
+              className="modalArrow modalArrowRight"
+              onClick={(e) => {
+                e.stopPropagation();
+                goNextImage();
+              }}
+            >
+              ›
+            </button>
+
+            <h2>{color.name}</h2>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function ResourcesPage() {
+  return (
+    <section className="resourcesPage">
+      <div className="resourcesHero">
+        <p className="eyebrow">Resources</p>
+        <h1>Product Documents & Guides</h1>
+        <p>
+          Download Clivia Floors spec sheets, installation guides, warranty
+          information, and product resources.
+        </p>
+      </div>
+
+      <div className="resourceGrid">
+        <a className="resourceCard" href={`${BASE}resources/clivia_floors_specs.pdf`}
+          download>
+          <h3>Spec Sheets</h3>
+          <p>Product specifications, series details, carton information, and warranty data.</p>
+          <span>Download PDF</span>
+        </a>
+
+        <a className="resourceCard" href="/resources/installation_guide.pdf" download>
+          <h3>Installation Guide</h3>
+          <p>Floating installation instructions and recommended installation practices.</p>
+          <span>Download PDF</span>
+        </a>
+
+        <a className="resourceCard" href="/resources/warranty_information.pdf" download>
+          <h3>Warranty Information</h3>
+          <p>Residential and light commercial warranty information for Clivia flooring.</p>
+          <span>Download PDF</span>
+        </a>
+      </div>
+    </section>
+  );
+}
+
+function VisualizerPage() {
+  const navigate = useNavigate();
+
+  return (
+    <section className="comingSoonPage">
+      <div className="comingSoonCard">
+        <p className="eyebrow">Clivia Innovation</p>
+
+        <h1>Room Visualizer</h1>
+
+        <h2>Coming Soon</h2>
+
+        <p>
+          Upload your room photo and preview Clivia flooring colours instantly.
+          Our next-generation flooring simulator is currently in development.
+        </p>
+
+        <div className="comingButtons">
+          <button onClick={() => navigate("/contact")}>Get Early Access</button>
+          <button className="lightBtn" onClick={() => navigate("/")}>
+            Back Home
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactPage() {
+  return (
+    <section className="contactFormPage">
+      <div className="contactFormHero">
+        <p className="eyebrow">Contact Us</p>
+        {/* <h1>Dealer Inquiry</h1> */}
+        <p>
+          Fill out the form below and our team will contact you about pricing,
+          samples, availability, and dealer support.
+        </p>
+      </div>
+
+      <form
+        className="dealerForm"
+        action="https://formspree.io/f/mzdyljbw"
+        method="POST"
+      >
+        <div className="formColumn">
+          <h2>Your Contact Information</h2>
+
+          <input name="firstName" type="text" placeholder="First Name *" required />
+          <input name="lastName" type="text" placeholder="Last Name *" required />
+          <input name="email" type="email" placeholder="Email *" required />
+          <input name="phone" type="tel" placeholder="Phone Number" />
+          <input name="province" type="text" placeholder="Province / State *" required />
+        </div>
+
+        <div className="formColumn">
+          <h2>Company Contact Information</h2>
+
+          <input name="companyName" type="text" placeholder="Company Name" />
+          <input name="companyWebsite" type="text" placeholder="Company Website" />
+          <input name="companyPhone" type="tel" placeholder="Company Phone Number" />
+        </div>
+
+        <textarea
+          name="message"
+          placeholder="Leave a quick message and we'll get back to you as soon as we are able. Thanks! :)"
+        ></textarea>
+
+        <button type="submit">Submit Inquiry</button>
+      </form>
+    </section>
+  );
+}
+
+function SeoSpcCanada() {
+  return (
+    <section className="resourcesPage">
+      <div className="resourcesHero">
+        <p className="eyebrow">SPC Flooring Canada</p>
+        <h1>SPC Flooring Supplier in Canada</h1>
+        <p>
+          Clivia Floors supplies premium SPC flooring collections for retail stores,
+          builders, contractors, and flooring dealers across Canada.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function SeoWholesaleBC() {
+  return (
+    <section className="resourcesPage">
+      <div className="resourcesHero">
+        <p className="eyebrow">Wholesale Flooring BC</p>
+        <h1>Wholesale Flooring Distributor in British Columbia</h1>
+        <p>
+          Clivia Floors supports flooring retailers, contractors, and project buyers
+          with SPC flooring supply in BC and across Canada.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="siteFooter">
+      <div className="footerGrid">
+        <div className="footerBrand">
+          <img src={`${BASE}images/logo.jpg`} alt="Clivia Floors" />
+
+          <p>
+            Premium SPC flooring collections for modern homes.
+          </p>
+
+          <div className="socialLinks">
+            <span>f</span>
+            <a
+              href="https://www.instagram.com/cliviafloors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ig
+            </a>
+            <span>in</span>
+          </div>
+        </div>
+
+        <div>
+          <h4>Collections</h4>
+          <Link to="/cl3">Essential (6.5mm)</Link>
+          <Link to="/wide-plank">Wide Plank (7mm)</Link>
+          <Link to="/standard">Standard (7mm)</Link>
+          <Link to="/premium">Premium (8mm)</Link>
+        </div>
+
+        <div>
+          <h4>Resources</h4>
+          <Link to="/resources">Spec Sheets</Link>
+          <Link to="/resources">Installation Guide</Link>
+          <Link to="/resources">Warranty</Link>
+          <Link to="/visualizer">Visualizer</Link>
+          <Link to="/spc-flooring-canada">SPC Flooring Canada</Link>
+          <Link to="/vinyl-flooring-wholesale">Vinyl Flooring Wholesale</Link>
+          <Link to="/flooring-supplier-bc">Flooring Supplier BC</Link>
+        </div>
+
+        <div className="footerContact">
+          <h4>Contact</h4>
+          <p>BC, Canada</p>
+          <p>info@hrzfloors.com</p>
+          <Link className="footerCTA" to="/contact">
+            <span className="arrow">→</span>
+            Dealer Inquiry
+          </Link>
+        </div>
+      </div>
+
+      <div className="footerBottom">
+        <p>© 2026 Clivia Floors. All rights reserved.</p>
+        <p>Wholesale SPC Flooring</p>
+      </div>
+    </footer>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function App() {
+//   const [page, setPage] = useState("home");
+//   const selectedSeries = seriesData.find((item) => item.id === page);
+//   const [selectedColor, setSelectedColor] = useState(null);
+//   const goPageTop = (pageName) => {
+//     document.documentElement.style.scrollBehavior = "auto";
+//     window.scrollTo(0, 0);
+//     setPage(pageName);
+
+//     setTimeout(() => {
+//       document.documentElement.style.scrollBehavior = "smooth";
+//     }, 100);
+//   };
+//   return (
+//     <BrowserRouter>
+//       <div className="site">
+//         <header className="header">
+//           <div
+//             className="logo"
+//             onClick={() => {
+//               setPage("home");
+//               setTimeout(() => {
+//                 window.scrollTo({
+//                   top: 0,
+//                   behavior: "smooth",
+//                 });
+//               }, 100);
+//             }}
+//           >
+//             <img src="/images/logo.jpg" alt="Clivia Floors" />
+//           </div>
+
+//           <nav>
+//             <button
+//               onClick={() => {
+//                 setPage("home");
+//                 setTimeout(() => {
+//                   window.scrollTo({
+//                     top: 0,
+//                     behavior: "smooth",
+//                   });
+//                 }, 100);
+//               }}
+//             >
+//               Home
+//             </button>
+//             <div className="navDropdown">
+//               <button className="dropdownTrigger">Series ▾</button>
+
+//               <div className="dropdownMenu">
+//                 <button onClick={() => setPage("cl3")}>Clivia 6.5mm SPC 3 Series</button>
+
+//                 <button onClick={() => setPage("wide")}>
+//                   Clivia 7mm SPC 170 Series
+//                 </button>
+
+//                 <button onClick={() => setPage("standard")}>
+//                   Clivia 7mm SPC 173 Series
+//                 </button>
+
+//                 <button onClick={() => setPage("premium")}>
+//                   Clivia 8mm SPC 18 Series
+//                 </button>
+//               </div>
+//             </div>
+//             <button onClick={() => setPage("resources")}>Resources</button>
+//             <button
+//               onClick={() => {
+//                 document.documentElement.style.scrollBehavior = "auto";
+//                 window.scrollTo(0, 0);
+//                 setPage("visualizer");
+
+//                 setTimeout(() => {
+//                   document.documentElement.style.scrollBehavior = "smooth";
+//                 }, 100);
+//               }}
+//             >
+//               Visualizer
+//             </button>
+//             <button onClick={() => setPage("contact")}>Contact</button>
+//           </nav>
+
+//           <button className="quoteBtn" onClick={() => setPage("contact")}>
+//             Dealer Inquiry
+//           </button>
+//         </header>
+
+//         {page === "home" && (
+//           <>
+//             <section className="luxuryHero">
+//               <div className="heroOverlay">
+//                 <p className="heroLabel">Premium SPC Flooring</p>
+
+//                 <h1>
+//                   Artistically Inspired.
+//                   <br />
+//                   Made for Life.
+//                 </h1>
+
+//                 <p className="heroText">
+//                   Clivia SPC flooring combines stunning wood designs with durability,
+//                   comfort, and performance — perfect for retail stores, builders, and
+//                   modern homes.
+//                 </p>
+
+//                 <div className="heroButtons">
+//                   <button
+//                     onClick={() => {
+//                       setPage("home");
+
+//                       setTimeout(() => {
+//                         document.getElementById("collections")?.scrollIntoView({
+//                           behavior: "smooth",
+//                           block: "start",
+//                         });
+//                       }, 100);
+//                     }}
+//                   >
+//                     Explore Our Series
+//                   </button>
+//                   <button className="outlineBtn" onClick={() => setPage("contact")}>
+//                     Dealer Inquiry
+//                   </button>
+//                 </div>
+//               </div>
+//             </section>
+
+//             <section id="collections" className="luxuryCollections">
+//               <p className="sectionLabel">Our Collections</p>
+//               <h2>Find the Perfect Floor for Your Space</h2>
+//               <p className="sectionSub">
+//                 Explore our premium SPC flooring series, designed for style, strength,
+//                 and everyday living.
+//               </p>
+
+//               <div className="luxuryGrid">
+//                 {seriesData.map((item) => (
+//                   <div
+//                     className="luxuryCard"
+//                     key={item.id}
+//                     onClick={() => {
+//                       document.documentElement.style.scrollBehavior = "auto";
+//                       window.scrollTo(0, 0);
+//                       setPage(item.id);
+
+//                       setTimeout(() => {
+//                         document.documentElement.style.scrollBehavior = "smooth";
+//                       }, 100);
+//                     }}
+//                   >
+//                     <div
+//                       className="luxuryCardImage"
+//                       style={{
+//                         backgroundImage: `url(${item.colors?.[0]?.image || "/images/CL321.jpg"})`,
+//                       }}
+//                     ></div>
+
+//                     <div className="luxuryCardText">
+//                       <h3>{item.name}</h3>
+//                       <p>
+//                         {item.thickness} · {item.size}
+//                       </p>
+//                       <button
+//                         onClick={(e) => {
+//                           e.stopPropagation();
+//                           document.documentElement.style.scrollBehavior = "auto";
+//                           window.scrollTo(0, 0);
+//                           setPage(item.id);
+
+//                           setTimeout(() => {
+//                             document.documentElement.style.scrollBehavior = "smooth";
+//                           }, 100);
+//                         }}
+//                       >
+//                         Explore
+//                       </button>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </section>
+//           </>
+//         )}
+
+//         {selectedSeries && (
+//           <section className="detailPage">
+//             <button
+//               className="back"
+//               onClick={() => {
+//                 setPage("home");
+
+//                 setTimeout(() => {
+//                   document.getElementById("collections")?.scrollIntoView({
+//                     behavior: "smooth",
+//                   });
+//                 }, 100);
+//               }}
+//             >
+//               ← Back to Series
+//             </button>
+
+//             <div className="detailHero">
+//               <h1>{selectedSeries.name}</h1>
+//               <p>{selectedSeries.description}</p>
+//             </div>
+
+//             <div className="detailSpecs">
+//               <div>
+//                 <span>Size</span>
+//                 <strong>{selectedSeries.size}</strong>
+//               </div>
+
+//               <div>
+//                 <span>Thickness</span>
+//                 <strong>{selectedSeries.thickness}</strong>
+//               </div>
+
+//               <div>
+//                 <span>Wear Layer</span>
+//                 <strong>{selectedSeries.wear}</strong>
+//               </div>
+//             </div>
+
+//             <h2>Available Colours</h2>
+
+//             <div className="colorGrid">
+//               {selectedSeries.colors.map((color) => (
+//                 <div
+//                   className="colorTile"
+//                   key={color.name}
+//                   onClick={() => setSelectedColor(color)}
+//                 >
+//                   <img src={color.image} alt={color.name} />
+//                   <h3>{color.name}</h3>
+//                 </div>
+//               ))}
+//             </div>
+//           </section>
+//         )}
+
+//         {page === "contact" && (
+//           <section className="contactFormPage">
+//             <div className="contactFormHero">
+//               <p className="eyebrow">Contact Us</p>
+//               <h1>Dealer Inquiry</h1>
+//               <p>
+//                 Fill out the form below and our team will contact you about pricing,
+//                 samples, availability, and dealer support.
+//               </p>
+//             </div>
+
+//             <form
+//               className="dealerForm"
+//               action="https://formspree.io/f/mzdyljbw"
+//               method="POST"
+//             >
+//               <div className="formColumn">
+//                 <h2>Your Contact Information</h2>
+
+//                 <input name="firstName" type="text" placeholder="First Name *" required />
+//                 <input name="lastName" type="text" placeholder="Last Name *" required />
+//                 <input name="email" type="email" placeholder="Email *" required />
+//                 <input name="phone" type="tel" placeholder="Phone Number" />
+//                 <input name="province" type="text" placeholder="Province / State *" required />
+//               </div>
+
+//               <div className="formColumn">
+//                 <h2>Company Contact Information</h2>
+
+//                 <input name="companyName" type="text" placeholder="Company Name *" required />
+//                 <input name="companyWebsite" type="text" placeholder="Company Website" />
+//                 <input name="companyPhone" type="tel" placeholder="Company Phone Number" />
+//               </div>
+
+//               <textarea
+//                 name="message"
+//                 placeholder="Leave a quick message and we'll get back to you as soon as we are able. Thanks! :)"
+//               ></textarea>
+
+//               <button type="submit">Submit Inquiry</button>
+//             </form>
+//           </section>
+//         )}
+//         {selectedColor && (
+//           <div className="modal" onClick={() => setSelectedColor(null)}>
+//             <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+//               <button className="closeBtn" onClick={() => setSelectedColor(null)}>
+//                 ×
+//               </button>
+
+//               <img src={selectedColor.image} alt={selectedColor.name} />
+//               <h2>{selectedColor.name}</h2>
+//             </div>
+//           </div>
+//         )}
+//         {page === "visualizer" && (
+//           <section className="comingSoonPage">
+//             <div className="comingSoonCard">
+//               <p className="eyebrow">Clivia Innovation</p>
+
+//               <h1>Room Visualizer</h1>
+
+//               <h2>Coming Soon</h2>
+
+//               <p>
+//                 Upload your room photo and preview Clivia flooring colours instantly.
+//                 Our next-generation flooring simulator is currently in development.
+//               </p>
+
+//               <div className="comingButtons">
+//                 <button onClick={() => setPage("contact")}>
+//                   Get Early Access
+//                 </button>
+
+//                 <button
+//                   className="lightBtn"
+//                   onClick={() => {
+//                     setPage("home");
+
+//                     setTimeout(() => {
+//                       document.documentElement.style.scrollBehavior = "auto";
+//                       window.scrollTo(0, 0);
+
+//                       setTimeout(() => {
+//                         document.documentElement.style.scrollBehavior = "smooth";
+//                       }, 100);
+//                     }, 50);
+//                   }}
+//                 >
+//                   Back Home
+//                 </button>
+//               </div>
+//             </div>
+//           </section>
+//         )}
+//         {page === "resources" && (
+//           <section className="resourcesPage">
+//             <div className="resourcesHero">
+//               <p className="eyebrow">Resources</p>
+//               <h1>Product Documents & Guides</h1>
+//               <p>
+//                 Download Clivia Floors spec sheets, installation guides, warranty
+//                 information, and product resources.
+//               </p>
+//             </div>
+
+//             <div className="resourceGrid">
+//               <a className="resourceCard" href="/resources/clivia_floors_specs.pdf" download>
+//                 <h3>Spec Sheets</h3>
+//                 <p>Product specifications, series details, carton information, and warranty data.</p>
+//                 <span>Download PDF</span>
+//               </a>
+
+//               <a className="resourceCard" href="/resources/installation_guide.pdf" download>
+//                 <h3>Installation Guide</h3>
+//                 <p>Floating installation instructions and recommended installation practices.</p>
+//                 <span>Download PDF</span>
+//               </a>
+
+//               <a className="resourceCard" href="/resources/warranty_information.pdf" download>
+//                 <h3>Warranty Information</h3>
+//                 <p>Residential and light commercial warranty information for Clivia flooring.</p>
+//                 <span>Download PDF</span>
+//               </a>
+//             </div>
+//           </section>
+//         )}
+//         <footer className="siteFooter">
+//           <div className="footerGrid">
+//             <div className="footerBrand">
+//               <img src="/images/logo.jpg" alt="Clivia Floors" />
+//               <p>
+//                 Premium SPC flooring collections for retail stores, builders, and modern homes.
+//               </p>
+
+//               <div className="socialLinks">
+//                 <span>f</span>
+//                 <span>ig</span>
+//                 <span>in</span>
+//               </div>
+//             </div>
+
+//             <div>
+//               <h4>Collections</h4>
+//               <button onClick={() => goPageTop("cl3")}>CL3 Series</button>
+//               <button onClick={() => goPageTop("wide")}>7mm Wide Plank</button>
+//               <button onClick={() => goPageTop("standard")}>7mm Standard</button>
+//               <button onClick={() => goPageTop("premium")}>8mm Premium</button>
+//             </div>
+
+//             <div>
+//               <h4>Resources</h4>
+//               <button onClick={() => setPage("resources")}>Spec Sheets</button>
+//               <button onClick={() => setPage("resources")}>Installation Guide</button>
+//               <button onClick={() => setPage("resources")}>Warranty</button>
+//               <button
+//                 onClick={() => {
+//                   document.documentElement.style.scrollBehavior = "auto";
+//                   window.scrollTo(0, 0);
+//                   setPage("visualizer");
+
+//                   setTimeout(() => {
+//                     document.documentElement.style.scrollBehavior = "smooth";
+//                   }, 100);
+//                 }}
+//               >
+//                 Visualizer
+//               </button>
+//             </div>
+
+//             <div className="footerContact">
+//               <h4>Contact</h4>
+//               <p>BC, Canada</p>
+//               <p>info@hrzfloors.com</p>
+//               <button className="footerCTA" onClick={() => setPage("contact")}>
+//                 Dealer Inquiry
+//               </button>
+//             </div>
+//           </div>
+
+//           <div className="footerBottom">
+//             <p>© 2026 Clivia Floors. All rights reserved.</p>
+//             <p>Wholesale SPC Flooring</p>
+//           </div>
+//         </footer>
+//       </div>
+//     </BrowserRouter>
+//   );
+// }
+
+// function CL3Page({ seriesData, setSelectedColor }) {
+//   const selectedSeries = seriesData.find((item) => item.id === "cl3");
+
+//   return (
+//     <section className="detailPage">
+//       <div className="detailHero">
+//         <h1>{selectedSeries.name}</h1>
+//         <p>{selectedSeries.description}</p>
+//       </div>
+
+//       <div className="colorGrid">
+//         {selectedSeries.colors.map((color) => (
+//           <div
+//             className="colorTile"
+//             key={color.name}
+//             onClick={() => setSelectedColor(color)}
+//           >
+//             <img src={color.image} alt={color.name} />
+//             <h3>{color.name}</h3>
+//           </div>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
